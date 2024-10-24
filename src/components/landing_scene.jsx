@@ -13,6 +13,7 @@ import { GlowingMoon } from './glowing_moon';
 import { Earth } from './earth';
 import { SemaphoreTitle } from './semaphore_title';
 import { EventCard } from './event_card';
+import { Earth2 } from './model_components/earth';
 
 const LINE_NB_POINTS = 2000;
 
@@ -74,7 +75,7 @@ const LandingScene = () => {
     }, [curve]);
 
     useFrame((_state, delta) => {
-        if (scroll.offset > 0.03) {
+        if (scroll.offset > 0.03 && scroll.offset < 0.985) {
             setSpaceShuttleScale([0.3, 0.3, 0.3])
             setCardGroupScale([1, 1, 1])
         } else {
@@ -115,11 +116,10 @@ const LandingScene = () => {
     return (
         <>
             <ambientLight intensity={1} />
-            {/* <Rocket /> */}
-            <Earth position={[-0.9, -2, 2]} scale={[0.4, 0.4, 0.4]} />
+            <Earth />
             <Moon />
             <SemaphoreTitle />
-            <Mars position={[-1, -2, -300]} scale={[2, 2, 2]} />
+            <Mars position={[-1, -5, -300]} />
             <group ref={cardGroupRef} scale={cardGroupScale}>
 
                 {eventData?.map((ele, index) => {
@@ -131,7 +131,7 @@ const LandingScene = () => {
             <group ref={cameraGroup}>
                 <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
                 <group ref={airplane}>
-                    <Float intensity={2} speed={2}>
+                    <Float intensity={1} speed={1}>
 
                         <SpaceShuttle
                             ref={spaceShuttleRef}

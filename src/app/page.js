@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <Canvas>
-      <ScrollControls pages={100} >
+      <ScrollControls pages={10} >
         <LandingScene />
         <Stars />
       </ScrollControls>

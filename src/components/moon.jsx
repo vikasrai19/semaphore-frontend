@@ -3,7 +3,7 @@ import { useGLTF, useScroll } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 
 export function Moon(props) {
-    const { nodes, materials } = useGLTF('./models/moon.glb')
+    const { nodes, materials } = useGLTF('./models/moon2.glb')
     const moonRef = useRef()
 
     useFrame(() => {
@@ -12,12 +12,15 @@ export function Moon(props) {
 
     return (
         <>
-
-            <group castShadow {...props} ref={moonRef} dispose={null} position={[0.95, -2, 2]} scale={[0.25, 0.25, 0.25]} >
-                <mesh geometry={nodes.mesh_0.geometry} material={nodes.mesh_0.material} />
+            <group castShadow {...props} ref={moonRef} dispose={null} position={[0.95, -2, 2]} scale={[0.0005, 0.0005, 0.0005]}>
+                <mesh geometry={nodes.Cube008.geometry} material={materials['Default OBJ.005']} />
             </group>
+
+            {/* <group castShadow {...props} ref={moonRef} dispose={null} position={[0.95, -2, 2]} scale={[0.25, 0.25, 0.25]} >
+                <mesh geometry={nodes.mesh_0.geometry} material={nodes.mesh_0.material} />
+            </group> */}
         </>
     )
 }
 
-useGLTF.preload('./models/moon.glb')
+useGLTF.preload('./models/moon2.glb')
