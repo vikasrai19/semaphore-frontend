@@ -75,7 +75,7 @@ const LandingScene = () => {
     }, [curve]);
 
     useFrame((_state, delta) => {
-        if (scroll.offset > 0.03 && scroll.offset < 0.985) {
+        if (scroll.offset > 0.014 && scroll.offset < 0.985) {
             setSpaceShuttleScale([0.3, 0.3, 0.3])
             setCardGroupScale([1, 1, 1])
         } else {

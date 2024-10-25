@@ -5,6 +5,7 @@ import { Stars } from "@/components/stars";
 import { Sun } from "@/components/sun";
 import { ScrollControls, Text, useScroll, Html } from "@react-three/drei";
 import { Canvas, useFrame, } from "@react-three/fiber";
+import { useEffect } from "react";
 
 export default function Events() {
 
@@ -22,18 +23,46 @@ export default function Events() {
                 <ambientLight intensity={0.5} />
                 <Stars />
                 <Sun scale={[0.002, 0.0023, 0.002]} position={[-3, 0, 0]} />
-                <EventDetails title={'Stratagem'} desc={`Strategize, Lead , Conquer`} rules={rules} />
+                <EventDetails title={'Stratagem'} event={'IT Manager'} desc={`Strategize, Lead , Conquer`} rules={rules} />
             </Canvas>
         </>
     )
 }
 
-const EventDetails = ({ title, desc, rules }) => {
+const EventDetails = ({ title, event, desc, rules }) => {
 
     return (
         <>
-            <Html position={[0, 0, 0]}>
-                <p className="text-white text-[30px]"> Hello</p>
+            <Html position={[0, 3, 0]} className="w-[40vw]">
+                <div className="p-8 border border-slate-300 w-full flex flex-col space-y-6 justify-center items-center rounded-xl">
+                    <div className="flex flex-col space-y-2 items-center">
+                        <h3 className="text-white text-[60px] font-dosisBold"> {title} </h3>
+                        <p className="text-white text-[20px] font-dosisMedium"> {event}</p>
+                    </div>
+                    <p className="text-white text-[30px] font-dosisMedium w-full"> Rules : </p>
+                    <div className="flex flex-col space-y-2">
+                        {rules?.map((ele, index) => {
+                            return (
+                                <>
+                                    <p className="text-slate-100 text-[22px] font-dosisRegular w-full">
+                                        {index + 1}. {ele}
+                                    </p>
+                                </>
+                            )
+                        })}
+                    </div>
+                    <p className="text-white text-[30px] font-dosisMedium w-full text-center"> Event Heads : </p>
+                    <div className="flex flex-row space-x-3 text-white justify-around w-full font-dosisMedium text-[20px]">
+                        <div className="flex flex-col space-y-1">
+                            <p>Vikas Rai</p>
+                            <p>9448046877</p>
+                        </div>
+                        <div className="flex flex-col space-y-1">
+                            <p>Vikas Rai</p>
+                            <p>9448046877</p>
+                        </div>
+                    </div>
+                </div>
 
             </Html>
             {/* <group position={[2, 0, 0]}>
