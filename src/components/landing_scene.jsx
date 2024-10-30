@@ -1,9 +1,8 @@
 'use client';
 
 
-import { Float, Line, OrbitControls, PerspectiveCamera, ScrollControls, Text, useScroll } from '@react-three/drei';
+import { Float, OrbitControls, PerspectiveCamera, ScrollControls, Text, useScroll } from '@react-three/drei';
 import { Moon } from './moon';
-import { Rocket } from './rocket';
 import { Mars } from './mars';
 import { useFrame, useThree } from '@react-three/fiber';
 import { SpaceShuttle } from './space_shuttle';
