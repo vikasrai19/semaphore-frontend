@@ -3,27 +3,35 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Dosis-Bold';
+  font-family: 'dosis-bold';
   src: url('/fonts/Dosis-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
 @font-face {
-  font-family: 'Dosis-Regular';
+  font-family: 'dosis-regular';
   src: url('/fonts/Dosis-Regular.ttf') format('truetype');
   font-weight: 500;
 }
 
 @font-face {
-  font-family: 'Dosis-Medium';
+  font-family: 'dosis-medium';
   src: url('/fonts/Dosis-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Dosis-Light';
+  font-family: 'dosis-light';
   src: url('/fonts/Dosis-Light.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
@@ -31,6 +39,16 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #000;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+html {
+  margin: 0;
+  padding: 0;
 }
 
 @layer utilities {
