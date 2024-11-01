@@ -1,12 +1,13 @@
-import { Text } from "@react-three/drei"
+import { Html, Text, useScroll } from "@react-three/drei"
 import { useFrame, useLoader } from "@react-three/fiber"
 import { useEffect, useRef } from "react"
 import { TextureLoader } from "three"
+import { Button3D } from "./button_3d"
 
 const EventCard = (props) => {
     const cardRef = useRef()
     const texture = useLoader(TextureLoader, "./images/bg.png")
-
+    const scroll = useScroll()
 
 
     return (
@@ -16,11 +17,6 @@ const EventCard = (props) => {
                     <planeGeometry args={[3, 4]} />
                     <meshBasicMaterial color={"white"} opacity={0.0} transparent />
                 </mesh>
-
-                {/* <mesh position={[-4, -1.5, -20]} scale={[1.5, 1.5, 1.5]}>
-                    <planeGeometry args={[2.5, 1.5]} />
-                    <meshBasicMaterial map={texture} />
-                </mesh> */}
 
                 <Text
                     textAlign="center"
@@ -48,6 +44,7 @@ const EventCard = (props) => {
                 >
                     {props.data.desc}
                 </Text>
+                <Button3D label={'Know More'} position={[0, -0.3, 0]} />
             </group>
         </>
     )

@@ -13,6 +13,7 @@ module.exports = {
 				dosisLight: ['dosis-light', 'sans-serif'],
 				dosisBold: ['dosis-bold', 'sans-serif'],
 				dosisMedium: ['dosis-medium', 'sans-serif'],
+				funkrocker: ['funkrocker', 'sans-serif'],
 			},
 			colors: {
 				background: 'hsl(var(--background))',

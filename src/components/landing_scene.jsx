@@ -123,7 +123,7 @@ const LandingScene = () => {
 
                 {eventData?.map((ele, index) => {
                     return (
-                        <EventCard key={index} data={ele} index={index} cardPosition={[index % 2 == 0 ? 4 : -4, -2, -25 * (index + 2)]} />
+                        <EventCard key={index} data={ele} index={index} cardPosition={[index % 2 == 0 ? 4 : -4, -2, -25 * (index + 1)]} />
                     )
                 })}
             </group>
