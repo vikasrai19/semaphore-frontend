@@ -1,39 +1,26 @@
 'use client';
 
 
-import { Float, OrbitControls, PerspectiveCamera, ScrollControls, Text, useScroll } from '@react-three/drei';
+import { Float, PerspectiveCamera, useScroll } from '@react-three/drei';
 import { Moon } from './moon';
 import { Mars } from './mars';
 import { useFrame, useThree } from '@react-three/fiber';
 import { SpaceShuttle } from './space_shuttle';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import * as THREE from "three"
-import { GlowingMoon } from './glowing_moon';
 import { Earth } from './earth';
 import { SemaphoreTitle } from './semaphore_title';
 import { EventCard } from './event_card';
-import { Earth2 } from './model_components/earth';
+import { useMediaQuery } from 'react-responsive';
 
 const LINE_NB_POINTS = 2000;
 
-const eventData = [
-    { title: 'IT MANAGER', eventName: 'IT MANAGER EVENT', desc: 'The king of all  .. win all the rounds and take home a beautiful trophy', img: '', head1: 'Vikas', head2: '', head1Contact: '1234', head2Contact: '2234' },
-    { title: 'CODING', eventName: 'Stellar Syntax', desc: 'This is a coding competition where you will be tested to your core', img: '', head1: 'Vikas', head2: '', head1Contact: '1234', head2Contact: '2234' },
-    { title: 'WEB DESIGNING', eventName: 'WEB DESIGNING EVENT', desc: 'Design and develop portfolios for various companies and take home lots of cash', img: '', head1: 'Vikas', head2: '', head1Contact: '1234', head2Contact: '2234' },
-    { title: 'IT MANAGER', eventName: 'IT MANAGER EVENT', desc: 'The king of all  .. win all the rounds and take home a beautiful trophy', img: '', head1: 'Vikas', head2: '', head1Contact: '1234', head2Contact: '2234' },
-    { title: 'CODING', eventName: 'Stellar Syntax', desc: 'This is a coding competition where you will be tested to your core', img: '', head1: 'Vikas', head2: '', head1Contact: '1234', head2Contact: '2234' },
-    { title: 'WEB DESIGNING', eventName: 'WEB DESIGNING EVENT', desc: 'Design and develop portfolios for various companies and take home lots of cash', img: '', head1: 'Vikas', head2: '', head1Contact: '1234', head2Contact: '2234' },
-    { title: 'IT MANAGER', eventName: 'IT MANAGER EVENT', desc: 'The king of all  .. win all the rounds and take home a beautiful trophy', img: '', head1: 'Vikas', head2: '', head1Contact: '1234', head2Contact: '2234' },
-    { title: 'CODING', eventName: 'Stellar Syntax', desc: 'This is a coding competition where you will be tested to your core', img: '', head1: 'Vikas', head2: '', head1Contact: '1234', head2Contact: '2234' },
-    { title: 'WEB DESIGNING', eventName: 'WEB DESIGNING EVENT', desc: 'Design and develop portfolios for various companies and take home lots of cash', img: '', head1: 'Vikas', head2: '', head1Contact: '1234', head2Contact: '2234' },
-    { title: 'WEB DESIGNING', eventName: 'WEB DESIGNING EVENT', desc: 'Design and develop portfolios for various companies and take home lots of cash', img: '', head1: 'Vikas', head2: '', head1Contact: '1234', head2Contact: '2234' },
-]
-
-const LandingScene = () => {
+const LandingScene = ({ eventsData }) => {
 
     const cameraGroup = useRef(null)
     const scroll = useScroll()
     const cardGroupRef = useRef()
+    const isMobile = useMediaQuery({ maxWidth: 768 })
 
 
     const curve = useMemo(() => {
@@ -121,9 +108,9 @@ const LandingScene = () => {
             <Mars position={[-1, -5, -300]} />
             <group ref={cardGroupRef} scale={cardGroupScale}>
 
-                {eventData?.map((ele, index) => {
+                {eventsData?.map((ele, index) => {
                     return (
-                        <EventCard key={index} data={ele} index={index} cardPosition={[index % 2 == 0 ? 4 : -4, -2, -25 * (index + 1)]} />
+                        <EventCard key={index} data={ele} index={index} cardPosition={[index % 2 == 0 ? isMobile ? 2 : 5.0 : isMobile ? -2 : -5, -3, -27 * (index + 1)]} />
                     )
                 })}
             </group>
@@ -161,37 +148,6 @@ const LandingScene = () => {
             </group>
         </>
     )
-
-    // const { camera } = useThree()
-    // const scroll = useScroll()
-    // const minFov = 30;
-    // const maxFov = 70;
-
-    // useFrame(() => {
-    //     if (scroll) {
-    //         const zoomFactor = 20; // Adjust this for zoom sensitivity
-    //         let newFov = 50 - (scroll.offset * zoomFactor); // Decrease FOV as scroll increases (zoom in)
-    //         newFov = Math.min(Math.max(newFov, minFov), maxFov);
-    //         // Apply the new FOV directly to the camera
-    //         camera.fov = newFov;
-    //         camera.updateProjectionMatrix(); // Update the camera's projection matrix after changing FOV
-
-    //     }
-    // })
-    // return (
-    //     <>
-    //         <ambientLight intensity={1} />
-    //         <OrbitControls
-    //             enablePan={false}
-    //             enableRotate={false}
-    //         />
-    //         <ScrollControls damping={0.25} >
-    //             <Rocket />
-    //             <Moon />
-    //             <Mars />
-    //         </ScrollControls>
-    //     </>
-    // )
 }
 
 export { LandingScene }
