@@ -20,6 +20,7 @@ const useSubmit = () => {
             setMsgWithErr({ msg: res?.data?.message, err: false })
             return res
         } catch (err) {
+            toast.error(err?.response?.data)
             setMsgWithErr({ msg: err?.response?.data, err: true })
             throw err
         } finally {

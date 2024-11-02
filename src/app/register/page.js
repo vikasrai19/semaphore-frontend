@@ -1,29 +1,46 @@
 "use client";
 
+import { DropDown } from "@/components/dropdown";
+import { PasswordTextInput, TextInput } from "@/components/input";
+import { useQueryConfig } from "@/config/useQuery.config";
+import { useGetData } from "@/hooks/useGetData";
+import { Mail01Icon, LockPasswordIcon, BankIcon, UserGroupIcon, SmartPhone01Icon } from "hugeicons-react";
 import { useState, useEffect } from "react"
 
 export default function Register_Page() {
     //state to list selectable colleges
     const [colleges, setColleges] = useState([]);
 
+    const { data: collegeList, isLoading: isCollegeListLoading } = useGetData(
+        `collegeList`,
+        `${process.env.NEXT_PUBLIC_URL}/web/api/registration/v1/colleges`,
+        useQueryConfig
+    )
+
     //states
     const [formData, setformData] = useState({
-        username: "",
+        email: "",
         password: "",
-        college: ""
-      })
+        college: "",
+        phoneNumber: "",
+        teamName: "",
+    })
 
-      //Handling input change
-      const handleInputChange = async (e) =>{
+    //Handling input change
+    const handleInputChange = async (e) => {
         const { name, value } = e.target;
-        if (name == "username") {
-          setformData({username:value})
-        } else if(name == "password") {
-            setformData({password:value})
-        } else if(name == "college"){
-            setformData({college:value})
+        if (name == "email") {
+            setformData({ email: value })
+        } else if (name == "password") {
+            setformData({ password: value })
+        } else if (name == "college") {
+            setformData({ college: value })
+        } else if (name == 'teamName') {
+            setformData({ teamName: value })
+        } else if (name == 'phoneNumber') {
+            setformData({ phoneNumber: value })
         }
-      }
+    }
 
     //TODO: Fetch college list
     useEffect(() => {
@@ -36,6 +53,9 @@ export default function Register_Page() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const formData = new FormData(e.target);
+        const body = Object.fromEntries(formData.entries());
+        console.log("body ", body);
     }
 
     return (
@@ -43,81 +63,59 @@ export default function Register_Page() {
             <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-[#000080] to-[#00001A]">
 
 
-                <form onSubmit={handleSubmit} className="flex flex-col items-center w-full max-w-sm mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <form onSubmit={handleSubmit} className="flex flex-col items-center w-full max-w-sm mx-4 lg:mx-auto bg-white p-8 rounded-lg shadow-lg">
 
-                    <h2 className="text-2xl font-bold text-center mb-8">Register</h2>
-                    
+                    <h2 className="text-2xl font-bold text-center mb-8 font-dosisBold">Register</h2>
+
                     {/*Username*/}
-                    <div className="mb-4 w-full">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                            Email
-                        </label>
-                        <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
-                            <span className="px-3 text-gray-600">
-                                <img src="/icons/email.svg" alt="Email Icon" />
-                            </span>
-                            <input
-                                className="w-full px-3 py-2 outline-none"
-                                type="email"
-                                name="username"
-                                value={formData.username}
-                                onChange={handleInputChange}
-                                placeholder="Enter Email"
-                                id="email"
-                                required
-                            />
-                        </div>
-                    </div>
+                    <TextInput
+                        label={"Email"}
+                        name={'email'}
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        icon={<Mail01Icon color="#000" />}
+                        placeholder={'Enter Email'}
+                    />
 
                     {/*Password*/}
-                    <div className="mb-6 w-full">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                            Password
-                        </label>
-                        <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
-                            <span className="px-3 text-gray-600">
-                                <img src="/icons/password.svg" alt="Password Icon" />
-                            </span>
-                            <input
-                                className="w-full px-3 py-2 outline-none"
-                                type="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleInputChange}
-                                placeholder="Enter Password"
-                                id="password"
-                                required
-                            />
-                            {/* Toggle eye icon for visibility */}
-                            {/* <span className="px-3 text-gray-600 cursor-pointer">
-                                <img src="/icons/eye_closed.svg" alt="Toggle Visibility Icon" />
-                            </span> */}
-                        </div>
-                    </div>
-
-                    {/*College Field*/}
-                    <div className="mb-6 w-full">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                            College
-                        </label>
-                        <div className="flex items-center border pr-4 border-gray-300 rounded-md overflow-hidden">
-                            <span className="px-3 text-gray-600">
-                                <img src="/icons/college.svg" alt="College icon" />
-                            </span>
-                            <select className="w-full px-3 py-2 outline-none" name="college" onChange={handleInputChange} id="College" required>
-                                <option value="" className="text-gray-400" defaultValue selected disabled>Select College</option>
-                                {
-                                    colleges.map((college, index) => (
-                                        <option className="text-black" key={college+index} value={college}>{college}</option>
-                                    ))
-                                }
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="flex justify-center w-full">
+                    <PasswordTextInput
+                        label={"Password"}
+                        name={'password'}
+                        value={formData.password}
+                        onChange={handleInputChange}
+                        icon={<LockPasswordIcon color="#000" />}
+                        placeholder={'Enter Password'}
+                    />
+                    <TextInput
+                        label={"Phone Number"}
+                        name={'phoneNumber'}
+                        value={formData.phoneNumber}
+                        onChange={handleInputChange}
+                        icon={<SmartPhone01Icon color="#000" />}
+                        placeholder={'Enter Phone Number'}
+                    />
+                    <TextInput
+                        label={"Team Name"}
+                        name={'teamName'}
+                        value={formData.teamName}
+                        onChange={handleInputChange}
+                        icon={<UserGroupIcon color="#000" />}
+                        placeholder={'Enter Team Name'}
+                    />
+                    <DropDown
+                        name={'collegeId'}
+                        label="Select College"
+                        DropDownItems={collegeList?.map((ele, index) => {
+                            return {
+                                label: ele?.collegeName,
+                                value: ele?.collegeId,
+                            }
+                        })}
+                        placeholder={'Select College'}
+                    />
+                    <div className="flex justify-center w-full mt-10">
                         <button
-                            className="w-1/2 bg-blue-950 text-white py-2 rounded-md text-lg font-semibold hover:bg-blue-700 transition duration-300"
+                            className="w-1/2 bg-blue-950 text-white py-2 rounded-md text-lg font-semibold hover:bg-blue-700 transition duration-300 font-dosisMedium"
                             type="submit"
                         >
                             Register
