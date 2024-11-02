@@ -1,39 +1,58 @@
 import React from 'react';
-import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
-import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined';
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
-import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
-import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
+import { DashboardSquare01Icon, CellsIcon, CheckmarkBadge04Icon, RankingIcon, Note04Icon, CancelCircleIcon } from 'hugeicons-react';
+import Link from 'next/link';
 
 const Sidebar = () => {
   return (
-    <aside className="w-1/6 h-screen bg-gray-200 p-4 flex flex-col"> 
-      <h1 className="text-2xl font-bold mb-8 font-dosisBold">2k24</h1>
-      <nav className="space-y-6 flex-1">
-        <a href="#dashboard" className="flex items-center space-x-3 hover:text-gray-600">
-          <DashboardOutlinedIcon className="w-6 h-6" />
-          <span className="text-lg font-medium font-dosisRegular">Dashboard</span>
-        </a>
-        <a href="#event-details" className="flex items-center space-x-3 hover:text-gray-600">
-          <EventOutlinedIcon className="w-6 h-6" />
-          <span className="text-lg font-medium font-dosisRegular">Event Details</span>
-        </a>
-        <a href="#update-scores" className="flex items-center space-x-3 hover:text-gray-600">
-          <CreditScoreOutlinedIcon className="w-6 h-6" />
-          <span className="text-lg font-medium font-dosisRegular">Update Scores</span>
-        </a>
-        <a href="#rankings" className="flex items-center space-x-3 hover:text-gray-600">
-          <MilitaryTechOutlinedIcon className="w-6 h-6" />
-          <span className="text-lg font-medium font-dosisRegular">Rankings</span>
-        </a>
-        <a href="#registrations" className="flex items-center space-x-3 hover:text-gray-600">
-          <AppRegistrationOutlinedIcon className="w-6 h-6" />
-          <span className="text-lg font-medium font-dosisRegular">Registrations</span>
-        </a>
-      </nav>
-    </aside>
+    <>
+      <div className='hidden lg:flex flex-col z-[99] w-[90vw] lg:w-[20vw] h-[100vh] bg-white py-10 items-center font-dosisMedium rounded-lg'>
+        <p className='font-dosisBold text-3xl'>2K24</p>
+        <div className='flex flex-col space-y-6 w-[75%] mt-10 justify-center'>
+          <SidebarMenuItem icon={<DashboardSquare01Icon color='#000' />} text="Dashboard" href="/dashboard" />
+          <SidebarMenuItem icon={<CellsIcon color='#000' />} text="Event Details" href="/dashboard" />
+          <SidebarMenuItem icon={<CheckmarkBadge04Icon color='#000' />} text="Update Scores" href="/dashboard" />
+          <SidebarMenuItem icon={<RankingIcon color='#000' />} text="Rankings" href="/dashboard" />
+          <SidebarMenuItem icon={<Note04Icon color='#000' />} text="Registrations" href="/dashboard" />
+        </div>
+      </div>
+    </>
+
   );
 };
 
+const MobileSideBar = ({ setShowSideBar }) => {
+  return (
+    <>
+      <div className='flex flex-col z-[99] absolute top-2 bottom-2 left-2 right-2 bg-white rounded-lg items-center py-10'>
+        <div className='flex flex-row w-full p-2 justify-end' >
+          <CancelCircleIcon color='#000' className='cursor-pointer' onClick={() => setShowSideBar(false)} />
+        </div>
+        <p className='font-dosisBold text-3xl'>2K24</p>
+        <div className='flex flex-col space-y-6 w-[75%] mt-10 justify-center'>
+          <SidebarMenuItem icon={<DashboardSquare01Icon color='#000' />} text="Dashboard" href="/dashboard" />
+          <SidebarMenuItem icon={<CellsIcon color='#000' />} text="Event Details" href="/dashboard" />
+          <SidebarMenuItem icon={<CheckmarkBadge04Icon color='#000' />} text="Update Scores" href="/dashboard" />
+          <SidebarMenuItem icon={<RankingIcon color='#000' />} text="Rankings" href="/dashboard" />
+          <SidebarMenuItem icon={<Note04Icon color='#000' />} text="Registrations" href="/dashboard" />
+        </div>
+      </div>
+    </>
+  )
+}
+
+const SidebarMenuItem = ({ icon, text, href }) => {
+
+  return (
+    <>
+      <div className='flex flex-row space-x-3 '>
+        {icon}
+        <Link href={href} >
+          <p className='text-lg text-black'>{text}</p>
+        </Link>
+      </div>
+    </>
+  )
+}
+
+export { MobileSideBar }
 export default Sidebar;

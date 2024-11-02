@@ -1,6 +1,7 @@
-export default function Semaphore(){
-    return(
+export default function Semaphore() {
+    return (
         <>
-        this is semaphore page</>
+            <div className="w-full bg-red-300"></div>
+        </>
     )
 }
