@@ -1,7 +1,9 @@
+
 import localFont from "next/font/local";
 import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
+import QueryProvider from "./query-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,6 +41,10 @@ export default function RootLayout({ children }) {
           className={"font-dosisRegular"}
         />
         {children}
+        <QueryProvider>
+
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );

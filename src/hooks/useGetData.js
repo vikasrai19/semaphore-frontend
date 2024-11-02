@@ -5,7 +5,6 @@ import axios from 'axios'
 
 export const useGetData = (key, url, QueryConfig = {}, body = {}) => {
     const { token } = useAuthStore()
-
     const { data, error, isLoading, isFetched } = useQuery(
         key,
         async () => {
