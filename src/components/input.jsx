@@ -1,17 +1,18 @@
 import { useState } from "react"
 import { EyeIcon, ViewOffSlashIcon } from "hugeicons-react"
-const TextInput = ({ name, label, value, placeholder, onChange, icon, type = 'text', isRequired = true }) => {
+const TextInput = ({ name, label, value, placeholder, onChange, icon, type = 'text', isRequired = true }, props) => {
 
     return (
         <>
             <div className="mb-4 w-full">
-                <label className="block text-gray-700 text-sm font-bold mb-2 font-dosisMedium" htmlFor={name}>
+                <label className="block text-gray-700 text-sm mb-2 font-dosisMedium" htmlFor={name}>
                     {label}
                 </label>
                 <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden px-2">
                     {icon}
                     <input
                         className="w-full px-3 py-2 outline-none font-dosisRegular"
+
                         type={type}
                         name={name}
                         value={value}
@@ -19,6 +20,7 @@ const TextInput = ({ name, label, value, placeholder, onChange, icon, type = 'te
                         placeholder={placeholder}
                         required={isRequired}
                         id={name}
+                        {...props}
                     />
                 </div>
             </div>

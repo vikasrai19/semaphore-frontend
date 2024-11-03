@@ -15,7 +15,7 @@ const VerifyEmail = () => {
     const handleVerify = async () => {
         try {
             const { data } = await submitData(
-                `${process.env.NEXT_PUBLIC_URL}/web/api/users//v1/VerifyEmailUser`,
+                `${process.env.NEXT_PUBLIC_URL}/web/api/users/v1/VerifyEmailUser`,
                 {
                     userId,
                 }
@@ -25,7 +25,7 @@ const VerifyEmail = () => {
                 setIsEmailVerified(true)
             }
         } catch (error) {
-            toast.error(error?.message ?? 'Email verification failed')
+            toast.error(error?.response?.data?.message ?? error?.message ?? 'Email verification failed')
             console.log("error log ", error)
         }
     }

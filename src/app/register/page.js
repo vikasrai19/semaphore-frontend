@@ -4,16 +4,19 @@ import { DropDown } from "@/components/dropdown";
 import { PasswordTextInput, TextInput } from "@/components/input";
 import { useQueryConfig } from "@/config/useQuery.config";
 import { useGetData } from "@/hooks/useGetData";
-import { Mail01Icon, LockPasswordIcon, BankIcon, UserGroupIcon, SmartPhone01Icon } from "hugeicons-react";
+import { useSubmit } from "@/hooks/useSubmit";
+import { Mail01Icon, LockPasswordIcon, BankIcon, UserGroupIcon, SmartPhone01Icon, UserAccountIcon } from "hugeicons-react";
 import { useState, useEffect } from "react"
+import { toast } from "react-toastify";
 
 export default function Register_Page() {
     //state to list selectable colleges
     const [colleges, setColleges] = useState([]);
+    const { submitData: registerUser, isLoading: isRegistering } = useSubmit()
 
     const { data: collegeList, isLoading: isCollegeListLoading } = useGetData(
         `collegeList`,
-        `${process.env.NEXT_PUBLIC_URL}/web/api/registration/v1/colleges`,
+        `${process.env.NEXT_PUBLIC_URL}/web/api/registration/v1/GetCollegeList`,
         useQueryConfig
     )
 
@@ -24,6 +27,7 @@ export default function Register_Page() {
         college: "",
         phoneNumber: "",
         teamName: "",
+        fullName: ''
     })
 
     //Handling input change
@@ -39,6 +43,8 @@ export default function Register_Page() {
             setformData({ teamName: value })
         } else if (name == 'phoneNumber') {
             setformData({ phoneNumber: value })
+        } else if (name == 'fullName') {
+            setformData({ fullName: value })
         }
     }
 
@@ -51,11 +57,18 @@ export default function Register_Page() {
 
     }, []);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        const body = Object.fromEntries(formData.entries());
-        console.log("body ", body);
+        const body = Object.fromEntries(formData);
+        const { data } = await registerUser(
+            `${process.env.NEXT_PUBLIC_URL}/web/api/registration/v1/RegisterParticipant`,
+            body,
+        )
+        if (data) {
+            toast.success('Account created successfully');
+            toast.info("Please check your email for account verification");
+        }
     }
 
     return (
@@ -67,7 +80,15 @@ export default function Register_Page() {
 
                     <h2 className="text-2xl font-bold text-center mb-8 font-dosisBold">Register</h2>
 
-                    {/*Username*/}
+                    <TextInput
+                        label={"Full Name"}
+                        name={'fullName'}
+                        value={formData.fullName}
+                        onChange={handleInputChange}
+                        icon={<UserAccountIcon color="#000" />}
+                        placeholder={'Enter Full Name'}
+                    />
+
                     <TextInput
                         label={"Email"}
                         name={'email'}
@@ -113,7 +134,7 @@ export default function Register_Page() {
                         })}
                         placeholder={'Select College'}
                     />
-                    <div className="flex justify-center w-full mt-10">
+                    <div className="flex justify-center w-full mt-4">
                         <button
                             className="w-1/2 bg-blue-950 text-white py-2 rounded-md text-lg font-semibold hover:bg-blue-700 transition duration-300 font-dosisMedium"
                             type="submit"

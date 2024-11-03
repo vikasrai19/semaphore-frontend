@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { config } from '../config/header.config'
 import { useAPIMsgAndError, useAuthStore } from '../store'
 import axios from 'axios'
-import { toast } from 'react-toastify'
 
 // do not use the isLoading ,if ur using submitData more than once,make some other loading state in component
 
@@ -20,7 +19,6 @@ const useSubmit = () => {
             setMsgWithErr({ msg: res?.data?.message, err: false })
             return res
         } catch (err) {
-            toast.error(err?.response?.data)
             setMsgWithErr({ msg: err?.response?.data, err: true })
             throw err
         } finally {

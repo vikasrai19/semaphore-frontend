@@ -1,6 +1,12 @@
+import { useAuthStore } from "@/store"
 import { Menu03Icon, Notification01Icon, Logout03Icon, Notification03Icon } from "hugeicons-react"
+import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
 
 const NavBar = ({ showSidebar, setShowSidebar }) => {
+
+    const { logout } = useAuthStore()
+    const router = useRouter()
 
     return (
         <>
@@ -14,9 +20,13 @@ const NavBar = ({ showSidebar, setShowSidebar }) => {
                     <p className="text-md font-dosisBold">User Name</p>
                     <p className="text-xs font-dosisMedium">Event Name</p>
                 </div>
-                <div className="flex flex-row space-x-2">
-                    {/* <Notification01Icon color="#000" /> */}
-                    <Logout03Icon color="#000" />
+                <div className="flex flex-row space-x-2 lg:space-x-8">
+                    <Notification01Icon color="#000" className="cursor-pointer" onClick={() => toast.info("Feature coming soon !!")} />
+                    <Logout03Icon color="#000" className="cursor-pointer" onClick={() => {
+                        logout()
+                        toast.success("Logout Success")
+                        router.push('/login')
+                    }} />
                 </div>
             </div>
         </>

@@ -40,7 +40,6 @@ export default function RootLayout({ children }) {
           theme="light"
           className={"font-dosisRegular"}
         />
-        {children}
         <QueryProvider>
 
           {children}

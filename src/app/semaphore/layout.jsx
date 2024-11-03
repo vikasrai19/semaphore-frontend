@@ -1,10 +1,5 @@
 'use client';
 
-// import Navibar from "@/components/header";
-import Header from "@/components/header";
-// import Sidebar from "@/components/sidebar";
-// import Widgets from "@/components/widgets";
-import Dashboard from "@/components/dashboard";
 import Sidebar, { MobileSideBar } from "@/components/sidebar";
 import { NavBar } from "@/components/navbar";
 import { useState } from "react";
