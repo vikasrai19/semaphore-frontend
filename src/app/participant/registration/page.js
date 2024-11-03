@@ -177,6 +177,7 @@ const AlreadyRegisteredSection = () => {
                         <RegistrationDetailCard1 name="Registered User Name" value={registrationData?.user.fullName} />
                         <RegistrationDetailCard1 name="Email" value={registrationData?.user.email} />
                         <RegistrationDetailCard1 name="Phone Number" value={registrationData?.user.phoneNumber} />
+                        <RegistrationDetailCard1 name="Status" value={registrationData?.status?.status} />
                     </div>
                     <p className="font-dosisBold">Event & Participants Details</p>
                     {registrationData?.eventTeams?.map((ele, index) => {
