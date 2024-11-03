@@ -18,12 +18,16 @@ const useStore = create((set) => ({
 const useAccountStore = create((set) => ({
     accountName: null,
     profileImage: null,
+    userType: null,
     setAccountName: (name) => {
         set({ accountName: name })
     },
     setProfileImage: (link) => {
         set({ profileImage: link })
     },
+    setUserType: (userType) => {
+        set({ userType: userType })
+    }
 }))
 
 
@@ -33,58 +37,19 @@ const useAuthStore = create((set) => ({
     loading: false,
     token: DB.getToken(),
     error: null,
-    login: async (email, password) => {
+    setLoginToken: async (res, isEnabled) => {
         set({ loading: true })
-        try {
-            const res = await axios.post(`/${API.login}`, {
-                email,
-                password,
-            })
-            set({ isAuthenticated: true })
-            set({ token: res?.data?.token })
-            set({ user: res?.data?.User })
-            set({ error: null })
-            DB.setToken(res?.data?.token)
-            return res?.data?.User?.UserType?.UserType.toLowerCase()
-        } catch (err) {
-            console.log(`Login error ${err}`)
-            set({ error: err?.response?.data ?? 'Some error occurred' })
-            throw err
-        } finally {
-            set({ loading: false })
-        }
-    },
-    register: async (name, email, password, phoneNo) => {
-        try {
-            set({ loading: true })
-            const res = await axios.post(
-                `/${API.register}`,
-                {
-                    name, email, password, phoneNo,
-                }
-            )
-            return res?.data
-        } catch (error) {
-            console.log('error ', error)
-            set({ error: error?.response?.data ?? 'Something went wrong' })
-            throw error;
-        } finally {
-            set({ loading: false })
-        }
+        set({ isAuthenticated: true })
+        set({ user: res?.data?.User ?? null })
+        set({ token: res?.accessToken })
+        set({ error: null })
+        DB.setToken(res?.accessToken)
+        return res?.userType.toLowerCase()
     },
     logout: () => {
         DB.removeToken()
-        console.log("token ", DB.getToken())
         set({ isAuthenticated: false, user: null })
         set({ token: null })
-    },
-    isAuthenticatedUser: async () => {
-        try {
-            let { data } = await axios.get(API.isAuthenticated, config(DB.getToken()))
-            set({ isAuthenticated: true })
-        } catch (err) {
-            set({ isAuthenticated: false })
-        }
     },
 }))
 
