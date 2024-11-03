@@ -167,7 +167,6 @@ const AlreadyRegisteredSection = () => {
         useQueryConfig,
     )
 
-    console.log("registration data ", registrationData)
     return (
         <>
             <div className="w-full min-h-full border rounded-lg bg-white p-4 space-y-6">

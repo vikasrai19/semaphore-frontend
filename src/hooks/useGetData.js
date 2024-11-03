@@ -11,7 +11,6 @@ export const useGetData = (key, url, QueryConfig = {}, body = {}) => {
             try {
                 return await axios.get(url, config(token))
             } catch (error) {
-                console.log('useGetData Error ', error)
                 throw error;
             }
         },
@@ -21,6 +20,5 @@ export const useGetData = (key, url, QueryConfig = {}, body = {}) => {
         }
         // QueryConfig
     )
-    // console.log(data, 'data')
     return { data: data?.data, error, isLoading, isFetched }
 }

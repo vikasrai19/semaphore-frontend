@@ -18,7 +18,7 @@ const MainLayout = ({
     const { token } = useAuthStore()
     const { setAccountName, setUserType } = useAccountStore()
     const router = useRouter()
-    const { isLoading, data, isFetched } = useGetData(
+    const { isLoading, data, isFetched, error } = useGetData(
         'isAuthenticated',
         `${process.env.NEXT_PUBLIC_URL}/web/api/auth/v1/IsAuthenticated?token=${token}`,
         useQueryConfig
@@ -35,6 +35,12 @@ const MainLayout = ({
             }
         }
     }, [data])
+
+    useEffect(() => {
+        if (error) {
+            router.push("/error")
+        }
+    }, [error])
 
 
     if (isLoading) {

@@ -15,9 +15,6 @@ export default function Home() {
     `${process.env.NEXT_PUBLIC_URL}/web/api/events/v1/FindAll`,
     useQueryConfig,
   );
-
-  console.log("events data ", eventsData)
-
   return (
     <Canvas>
       <ScrollControls pages={10} >

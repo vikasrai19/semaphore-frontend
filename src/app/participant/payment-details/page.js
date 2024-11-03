@@ -18,7 +18,6 @@ const PaymentDetails = () => {
 
     if (isPaymentHistoryLoading) return <Loading />
 
-    console.log('payment history ', paymentHistory)
 
     return (
         <>

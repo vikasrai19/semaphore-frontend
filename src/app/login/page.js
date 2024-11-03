@@ -22,7 +22,6 @@ export default function Login_Page() {
     )
 
     if (authData) {
-        console.log("auth data ", authData)
         const userType = authData?.userType?.userType?.toLowerCase()
         if (userType) { }
     }
@@ -55,7 +54,6 @@ export default function Login_Page() {
                 body,
             )
             if (data) {
-                console.log("login data ", data)
                 toast.success("Login Success")
                 await setLoginToken(data)
                 handleRouting(data)

@@ -26,7 +26,6 @@ const VerifyEmail = () => {
             }
         } catch (error) {
             toast.error(error?.response?.data?.message ?? error?.message ?? 'Email verification failed')
-            console.log("error log ", error)
         }
     }
     return (

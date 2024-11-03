@@ -12,11 +12,14 @@ import { Earth } from './earth';
 import { SemaphoreTitle } from './semaphore_title';
 import { EventCard } from './event_card';
 import { useMediaQuery } from 'react-responsive';
+import { useRouter } from 'next/navigation';
+import { Button3D } from './button_3d';
+import { toast } from 'react-toastify';
 
 const LINE_NB_POINTS = 2000;
 
 const LandingScene = ({ eventsData }) => {
-
+    const router = useRouter()
     const cameraGroup = useRef(null)
     const scroll = useScroll()
     const cardGroupRef = useRef()
@@ -105,6 +108,14 @@ const LandingScene = ({ eventsData }) => {
             <Earth />
             <Moon />
             <SemaphoreTitle />
+            <Button3D label={'Login'} position={[isMobile ? 0.6 : 4.3, isMobile ? 0.3 : 0.7, -6]} scale={[1, 1, 1]} onClick={() => {
+                toast.info("Loading Login Page .. please wait")
+                router.push(`/login`)
+            }} />
+            <Button3D label={'Register Now'} position={[-1, isMobile ? -1.2 : -1.6, -300]} onClick={() => {
+                toast.info("Loading Register Page .. please wait")
+                router.push(`/register`)
+            }} />
             <Mars position={[-1, -5, -300]} />
             <group ref={cardGroupRef} scale={cardGroupScale}>
 

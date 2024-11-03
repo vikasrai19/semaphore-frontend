@@ -48,7 +48,6 @@ const useAuthStore = create((set) => ({
     },
     logout: () => {
         DB.removeToken()
-        console.log("token ", DB.getToken())
         set({ isAuthenticated: false, user: null })
         set({ token: null })
     },

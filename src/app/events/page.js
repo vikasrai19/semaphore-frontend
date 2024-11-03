@@ -53,8 +53,6 @@ export default function Events() {
     }, [])
 
 
-    console.log("data ", eventData)
-
     return (
         <>
             <Canvas>
