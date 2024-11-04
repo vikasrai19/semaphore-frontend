@@ -112,17 +112,18 @@ export default function Register_Page() {
                         name={'phoneNumber'}
                         value={formData.phoneNumber}
                         onChange={handleInputChange}
+                        type="number"
                         icon={<SmartPhone01Icon color="#000" />}
                         placeholder={'Enter Phone Number'}
                     />
-                    <TextInput
+                    {/* <TextInput
                         label={"Team Name"}
                         name={'teamName'}
                         value={formData.teamName}
                         onChange={handleInputChange}
                         icon={<UserGroupIcon color="#000" />}
                         placeholder={'Enter Team Name'}
-                    />
+                    /> */}
                     <DropDown
                         name={'collegeId'}
                         label="Select College"
