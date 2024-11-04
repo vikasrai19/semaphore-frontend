@@ -74,6 +74,10 @@ export default function Login_Page() {
         const userType = data?.userType?.toLowerCase();
         if (userType == "participant") {
             router.push('/participant')
+        } else if (userType === 'super user') {
+            router.push('/superuser')
+        } else if (userType === 'event head') {
+            router.push('/event-heads')
         } else {
             router.push('/error')
         }
