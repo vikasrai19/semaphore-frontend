@@ -122,7 +122,10 @@ const LandingScene = ({ eventsData }) => {
                 toast.info("Loading Register Page .. please wait")
                 router.push(`/register`)
             }} />
-            <Mars position={[-1, -5, -300]} />
+            <Suspense fallback={<ModelLoading />}>
+
+                <Mars position={[-1, -5, -300]} />
+            </Suspense>
             <group position={[0, isMobile ? -3.7 : -3.9, -6]}>
                 <Text
                     textAlign="center"
