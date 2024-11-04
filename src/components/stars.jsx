@@ -12,6 +12,7 @@ function Stars() {
             const x = (Math.random() - 0.5) * 2000;
             const y = (Math.random() - 0.5) * 2000;
             const z = (Math.random() - 0.5) * 2000;
+            // positions.push(x, y, Math.min(-300, z));
             positions.push(x, y, z);
         }
         return new Float32Array(positions);

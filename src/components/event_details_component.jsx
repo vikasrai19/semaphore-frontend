@@ -12,7 +12,7 @@ import { Uranus } from "./model_components/uranus";
 import { Venus } from "./model_components/venus";
 import { Sun } from "./sun";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useGetData } from "@/hooks/useGetData";
 import { useQueryConfig } from "@/config/useQuery.config";
 import { useMediaQuery } from "react-responsive";
@@ -56,7 +56,10 @@ const EventDetailsComponent = () => {
     }, [])
     return (
         <>
-            {modelData[eventData?.modelName]}
+            <Suspense fallback={<ModelLoading />}>
+
+                {modelData[eventData?.modelName]}
+            </Suspense>
             {/* <Sun scale={[0.002, 0.0023, 0.002]} position={[-3, 0, 0]} /> */}
             <EventDetails title={eventData?.title} event={eventData?.eventName} desc={eventData?.description} rules={eventData?.eventRules} heads={eventData?.eventHeads} noOfParticipants={eventData?.memberCount} noOfRounds={eventData?.noOfRounds} />
 
@@ -116,4 +119,9 @@ const EventDetails = ({ title, event, desc, rules, heads, noOfParticipants, noOf
     )
 }
 
+function ModelLoading() {
+    return <meshBasicMaterial attach="material" color="grey" />
+}
+
+export { ModelLoading }
 export { EventDetailsComponent }
