@@ -60,15 +60,20 @@ export default function Register_Page() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const body = Object.fromEntries(formData);
-        const { data } = await registerUser(
-            `${process.env.NEXT_PUBLIC_URL}/web/api/registration/v1/RegisterParticipant`,
-            body,
-        )
-        if (data) {
-            toast.success('Account created successfully');
-            toast.info("Please check your email for account verification");
+        try {
+
+            const formData = new FormData(e.target);
+            const body = Object.fromEntries(formData);
+            const { data } = await registerUser(
+                `${process.env.NEXT_PUBLIC_URL}/web/api/registration/v1/RegisterParticipant`,
+                body,
+            )
+            if (data) {
+                toast.success('Account created successfully');
+                toast.info("Please check your email for account verification");
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message ?? error?.message ?? 'Registration failed')
         }
     }
 
