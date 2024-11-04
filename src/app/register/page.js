@@ -2,16 +2,22 @@
 
 import { DropDown } from "@/components/dropdown";
 import { PasswordTextInput, TextInput } from "@/components/input";
+import { Stars } from "@/components/stars";
 import { useQueryConfig } from "@/config/useQuery.config";
 import { useGetData } from "@/hooks/useGetData";
 import { useSubmit } from "@/hooks/useSubmit";
+import { Html } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 import { Mail01Icon, LockPasswordIcon, BankIcon, UserGroupIcon, SmartPhone01Icon, UserAccountIcon } from "hugeicons-react";
+import Image from "next/image";
 import { useState, useEffect } from "react"
+import { useMediaQuery } from "react-responsive";
 import { toast } from "react-toastify";
 
 export default function Register_Page() {
     //state to list selectable colleges
     const [colleges, setColleges] = useState([]);
+    const isMobile = useMediaQuery({ maxWidth: 764 })
     const { submitData: registerUser, isLoading: isRegistering } = useSubmit()
 
     const { data: collegeList, isLoading: isCollegeListLoading } = useGetData(
@@ -73,79 +79,93 @@ export default function Register_Page() {
 
     return (
         <>
-            <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-[#000080] to-[#00001A]">
+            <Canvas>
+                <ambientLight intensity={0.5} />
+                <Stars />
+                <Html position={[isMobile ? -1.2 : -2.6, isMobile ? 3.5 : 4, 0]} className="flex w-[300px] md:w-[550px] lg:w-[700px] items-center justify-center min-h-screen" >
 
 
-                <form onSubmit={handleSubmit} className="flex flex-col items-center w-full max-w-sm mx-4 lg:mx-auto bg-white p-8 rounded-lg shadow-lg">
 
-                    <h2 className="text-2xl font-bold text-center mb-8 font-dosisBold">Register</h2>
+                    <form onSubmit={handleSubmit} className="flex flex-col items-center w-full max-w-sm mx-4 lg:mx-auto bg-white p-8 rounded-lg shadow-lg relative">
+                        <Image
+                            className="absolute -top-9 -left-8 rounded-full"
 
-                    <TextInput
-                        label={"Full Name"}
-                        name={'fullName'}
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        icon={<UserAccountIcon color="#000" />}
-                        placeholder={'Enter Full Name'}
-                    />
+                            src={'/images/semaphore_logo.jpeg'}
+                            width={120}
+                            height={120}
+                            alt="Sempahore Logo"
+                        />
+                        <h2 className="text-2xl font-bold text-center mb-8 font-dosisBold">Register</h2>
 
-                    <TextInput
-                        label={"Email"}
-                        name={'email'}
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        icon={<Mail01Icon color="#000" />}
-                        placeholder={'Enter Email'}
-                    />
+                        <TextInput
+                            label={"Full Name"}
+                            name={'fullName'}
+                            value={formData.fullName}
+                            onChange={handleInputChange}
+                            icon={<UserAccountIcon color="#000" />}
+                            placeholder={'Enter Full Name'}
+                        />
 
-                    {/*Password*/}
-                    <PasswordTextInput
-                        label={"Password"}
-                        name={'password'}
-                        value={formData.password}
-                        onChange={handleInputChange}
-                        icon={<LockPasswordIcon color="#000" />}
-                        placeholder={'Enter Password'}
-                    />
-                    <TextInput
-                        label={"Phone Number"}
-                        name={'phoneNumber'}
-                        value={formData.phoneNumber}
-                        onChange={handleInputChange}
-                        type="number"
-                        icon={<SmartPhone01Icon color="#000" />}
-                        placeholder={'Enter Phone Number'}
-                    />
-                    {/* <TextInput
-                        label={"Team Name"}
-                        name={'teamName'}
-                        value={formData.teamName}
-                        onChange={handleInputChange}
-                        icon={<UserGroupIcon color="#000" />}
-                        placeholder={'Enter Team Name'}
-                    /> */}
-                    <DropDown
-                        name={'collegeId'}
-                        label="Select College"
-                        DropDownItems={collegeList?.map((ele, index) => {
-                            return {
-                                label: ele?.collegeName,
-                                value: ele?.collegeId,
-                            }
-                        })}
-                        placeholder={'Select College'}
-                    />
-                    <div className="flex justify-center w-full mt-4">
-                        <button
-                            className="w-1/2 bg-blue-950 text-white py-2 rounded-md text-lg font-semibold hover:bg-blue-700 transition duration-300 font-dosisMedium"
-                            type="submit"
-                        >
-                            Register
-                        </button>
-                    </div>
-                </form>
+                        <TextInput
+                            label={"Email"}
+                            name={'email'}
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            icon={<Mail01Icon color="#000" />}
+                            placeholder={'Enter Email'}
+                        />
 
-            </div>
+                        {/*Password*/}
+                        <PasswordTextInput
+                            label={"Password"}
+                            name={'password'}
+                            value={formData.password}
+                            onChange={handleInputChange}
+                            icon={<LockPasswordIcon color="#000" />}
+                            placeholder={'Enter Password'}
+                        />
+                        <TextInput
+                            label={"Phone Number"}
+                            name={'phoneNumber'}
+                            value={formData.phoneNumber}
+                            onChange={handleInputChange}
+                            type="number"
+                            icon={<SmartPhone01Icon color="#000" />}
+                            placeholder={'Enter Phone Number'}
+                        />
+                        {/* <TextInput
+        label={"Team Name"}
+        name={'teamName'}
+        value={formData.teamName}
+        onChange={handleInputChange}
+        icon={<UserGroupIcon color="#000" />}
+        placeholder={'Enter Team Name'}
+    /> */}
+                        <DropDown
+                            name={'collegeId'}
+                            label="Select College"
+                            DropDownItems={collegeList?.map((ele, index) => {
+                                return {
+                                    label: ele?.collegeName,
+                                    value: ele?.collegeId,
+                                }
+                            })}
+                            placeholder={'Select College'}
+                        />
+                        <div className="flex justify-center w-full mt-4">
+                            <button
+                                className="w-1/2 bg-blue-950 text-white py-2 rounded-md text-lg font-semibold hover:bg-blue-700 transition duration-300 font-dosisMedium"
+                                type="submit"
+                            >
+                                Register
+                            </button>
+                        </div>
+                    </form>
+
+                </Html>
+            </Canvas>
+
+
         </>
     )
 }

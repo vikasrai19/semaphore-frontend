@@ -1,12 +1,12 @@
 'use client';
 
 
-import { Float, PerspectiveCamera, useScroll } from '@react-three/drei';
+import { Float, PerspectiveCamera, Text, useScroll } from '@react-three/drei';
 import { Moon } from './moon';
 import { Mars } from './mars';
 import { useFrame, useThree } from '@react-three/fiber';
 import { SpaceShuttle } from './space_shuttle';
-import { useMemo, useRef, useState } from 'react';
+import { Suspense, useMemo, useRef, useState } from 'react';
 import * as THREE from "three"
 import { Earth } from './earth';
 import { SemaphoreTitle } from './semaphore_title';
@@ -15,6 +15,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/navigation';
 import { Button3D } from './button_3d';
 import { toast } from 'react-toastify';
+import { ModelLoading } from './event_details_component';
 
 const LINE_NB_POINTS = 2000;
 
@@ -105,8 +106,13 @@ const LandingScene = ({ eventsData }) => {
     return (
         <>
             <ambientLight intensity={1} />
-            <Earth />
-            <Moon />
+            <Suspense fallback={<ModelLoading />}>
+
+                <Earth />
+            </Suspense>
+            <Suspense fallback={<ModelLoading />}>
+                <Moon />
+            </Suspense>
             <SemaphoreTitle />
             <Button3D label={'Login'} position={[isMobile ? 0.6 : 4.3, isMobile ? 0.3 : 0.7, -6]} scale={[1, 1, 1]} onClick={() => {
                 toast.info("Loading Login Page .. please wait")
@@ -117,6 +123,22 @@ const LandingScene = ({ eventsData }) => {
                 router.push(`/register`)
             }} />
             <Mars position={[-1, -5, -300]} />
+            <group position={[0, isMobile ? -3.7 : -3.9, -6]}>
+                <Text
+                    textAlign="center"
+                    fontSize={isMobile ? 0.09 : 0.1}
+                    font={'./fonts/funkrocker.ttf'}
+                    color={"white"}
+                    anchorX={"center"}
+                    anchorY={"middle"}
+                    maxWidth={isMobile ? 1.3 : 4}
+                    position={[0, 0, 0]}
+                    letterSpacing={0.1}
+                    lineHeight={1.2}
+                >
+                    Start Scrolling to navigate through the website
+                </Text>
+            </group>
             <group ref={cardGroupRef} scale={cardGroupScale}>
 
                 {eventsData?.map((ele, index) => {

@@ -44,3 +44,16 @@ export const eventHeadMenu = [
         icon: <Note04Icon color='#000' />,
     },
 ]
+
+export const superUserMenu = [
+    {
+        name: 'Dashboard',
+        link: `/superuser`,
+        icon: <DashboardSquare01Icon color='#000' />,
+    },
+    {
+        name: 'Verify Payments',
+        link: `/superuser/verify-payments`,
+        icon: <CreditCardPosIcon color='#000' />,
+    },
+]
