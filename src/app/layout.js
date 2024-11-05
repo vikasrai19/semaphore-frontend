@@ -42,6 +42,7 @@ export default function RootLayout({ children }) {
         <link rel="preload" href="/models/sun.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous" />
         <link rel="preload" href="/models/uranus.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous" />
         <link rel="preload" href="/models/venus.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous" />
+        <link rel="preload" href="/models/space_shuttle.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
 
