@@ -1,6 +1,6 @@
 'use client'
 
-import { Html } from "@react-three/drei";
+import { Float, Html } from "@react-three/drei";
 import { Earth2 } from "./model_components/earth";
 import { EventMars } from "./model_components/event_mars";
 import { Jupiter } from "./model_components/jupiter";
@@ -16,6 +16,8 @@ import { Suspense, useEffect, useState } from "react";
 import { useGetData } from "@/hooks/useGetData";
 import { useQueryConfig } from "@/config/useQuery.config";
 import { useMediaQuery } from "react-responsive";
+import { Loading } from "./loading";
+import { RocketLoader } from "./model_components/rocket_loader";
 
 const EventDetailsComponent = () => {
     const [modelData, setModelData] = useState({})
@@ -61,7 +63,13 @@ const EventDetailsComponent = () => {
                 {modelData[eventData?.modelName]}
             </Suspense>
             {/* <Sun scale={[0.002, 0.0023, 0.002]} position={[-3, 0, 0]} /> */}
-            <EventDetails title={eventData?.title} event={eventData?.eventName} desc={eventData?.description} rules={eventData?.eventRules} heads={eventData?.eventHeads} noOfParticipants={eventData?.memberCount} noOfRounds={eventData?.noOfRounds} />
+
+            {isEventLoading === true ? <>
+
+                <RocketLoader position={[isMobile ? 0 : 3, 0, 0]} />
+            </> : <>
+                <EventDetails title={eventData?.title} event={eventData?.eventName} desc={eventData?.description} rules={eventData?.eventRules} heads={eventData?.eventHeads} noOfParticipants={eventData?.memberCount} noOfRounds={eventData?.noOfRounds} /> </>}
+
 
         </>
     )
