@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 import { Button3D } from './button_3d';
 import { toast } from 'react-toastify';
 import { ModelLoading } from './event_details_component';
+import { RocketLoader } from './model_components/rocket_loader';
 
 const LINE_NB_POINTS = 2000;
 
@@ -106,11 +107,12 @@ const LandingScene = ({ eventsData }) => {
     return (
         <>
             <ambientLight intensity={1} />
-            <Suspense fallback={<ModelLoading />}>
+
+            <Suspense fallback={<RocketLoader scale={[isMobile ? 0.15 : 0.35, isMobile ? 0.15 : 0.35, isMobile ? 0.15 : 0.35]} position={[isMobile ? -0.25 : -1.2, isMobile ? -2 : -2, 0]} />}>
 
                 <Earth />
             </Suspense>
-            <Suspense fallback={<ModelLoading />}>
+            <Suspense fallback={<></>}>
                 <Moon />
             </Suspense>
             <SemaphoreTitle />
