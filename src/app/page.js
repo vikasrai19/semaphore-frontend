@@ -1,5 +1,6 @@
 'use client'
 
+import { LandingPageLoader } from "@/components/landing_page_loader";
 import { LandingScene } from "@/components/landing_scene";
 import { RocketLoader } from "@/components/model_components/rocket_loader";
 import { Stars } from "@/components/stars";
@@ -21,17 +22,17 @@ export default function Home() {
     useQueryConfig,
   );
   return (
-    // <Suspense fallback={<> <Html position={[0, -2, 0]}> <p className="text-[100px] text-white font-funkrocker"> Loading</p> </Html></>} >
-    <Suspense fallback={<><div className="w-screen h-screen border bg-black flex flex-col items-center justify-center">
-      <p className="text-[30px] lg:text-[50px] font-funkrocker text-white">Loading .. Please wait </p>
-    </div> </>} >
-      <Canvas>
-        <ScrollControls pages={10} >
+    <>
 
-          <LandingScene eventsData={eventsData} />
-          <Stars />
-        </ScrollControls>
-      </Canvas >
-    </Suspense>
+      <Suspense fallback={<LandingPageLoader />} >
+        <Canvas>
+          <ScrollControls pages={10} >
+
+            <LandingScene eventsData={eventsData} />
+            <Stars />
+          </ScrollControls>
+        </Canvas >
+      </Suspense>
+    </>
   );
 }
