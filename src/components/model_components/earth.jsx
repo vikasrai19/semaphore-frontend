@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 
 export function Earth2(props) {
-    const { nodes, materials } = useGLTF('./models/earth2.glb')
+    const { nodes, materials } = useGLTF('./models/compressed/earth2.glb')
     const earthRef = useRef()
 
     useFrame(() => {
@@ -23,4 +23,4 @@ export function Earth2(props) {
     )
 }
 
-useGLTF.preload('./models/earth2.glb')
+useGLTF.preload('./models/compressed/earth2.glb')

@@ -7,12 +7,14 @@ import { useGetData } from "@/hooks/useGetData";
 import { useSubmit } from "@/hooks/useSubmit";
 import { Mail01Icon, LockPasswordIcon, BankIcon, UserGroupIcon, SmartPhone01Icon, UserAccountIcon } from "hugeicons-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react"
 import { toast } from "react-toastify";
 
 export default function Register_Page() {
     //state to list selectable colleges
     const [colleges, setColleges] = useState([]);
+    const router = useRouter()
     const { submitData: registerUser, isLoading: isRegistering } = useSubmit()
 
     const { data: collegeList, isLoading: isCollegeListLoading } = useGetData(
@@ -71,6 +73,9 @@ export default function Register_Page() {
             if (data) {
                 toast.success('Account created successfully');
                 toast.info("Please check your email for account verification");
+                setTimeout(() => {
+                    router.push('/login')
+                }, 1500)
             }
         } catch (error) {
             toast.error(error?.response?.data?.message ?? error?.message ?? 'Registration failed')

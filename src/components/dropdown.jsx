@@ -52,7 +52,7 @@ function DropDown({
                     <SelectTrigger className='w-full border' >
                         <SelectValue placeholder={placeholder} />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent >
                         {DropDownItems?.map((ele, index) => {
                             return (
                                 <SelectItem key={index} value={ele?.value} > {ele?.label} </SelectItem>

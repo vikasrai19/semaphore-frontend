@@ -13,6 +13,13 @@ import { toast } from "react-toastify"
 const ParticipantRegistrationPage = () => {
 
     const { cached } = useCached('isAuthenticated')
+    const router = useRouter()
+
+    const { data: isPaymentPending, isLoading: isPaymentPendingLoading } = useGetData(
+        `isPaymentPending`,
+        `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/IsPaymentPending?userId=${cached?.userId}`,
+        useQueryConfig
+    )
 
     const { data: eventList, isLoading: isEventListLoading } = useGetData(
         `registrationEventList`,
@@ -32,6 +39,21 @@ const ParticipantRegistrationPage = () => {
 
     return (
         <>
+            {isPaymentPending === true && <>
+                <div className="flex flex-col space-y-3 border p-4 bg-white rounded-lg mb-3">
+                    <h3 className="text-red-600 font-dosisBold">Payment Pending !</h3>
+                    <p> Please complete your payment procedure for successful registration </p>
+                    <div className="flex justify-start font-dosisMedium px-2">
+                        <button
+                            className="bg-blue-950 text-white py-2 rounded-md text-md font-semibold hover:bg-blue-700 transition duration-300 cursor-pointer px-6"
+                            type="submit"
+                            onClick={() => router.push('/participant/make-payment')}
+                        >
+                            Make a Payment
+                        </button>
+                    </div>
+                </div>
+            </>}
             {isAlreadyRegistered === true ? <AlreadyRegisteredSection /> : <RegisterSection eventList={eventList} />}
         </>
     )
@@ -150,7 +172,7 @@ const RegisterSection = ({ eventList }) => {
                             className="w-1/2 bg-blue-950 text-white py-2 rounded-md text-lg font-dosisBold hover:bg-blue-700 transition duration-300 cursor-pointer"
                             type="submit"
                         >
-                            {isSubmitting ? 'Processing ... Please wait' : 'Confirm Details'}
+                            {isSubmitting ? 'Processing ... Please wait' : 'Save & Proceed to Payment'}
                         </button>
                     </div>
                 </form>

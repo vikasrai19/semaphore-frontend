@@ -9,7 +9,7 @@ const SemaphoreTitle = () => {
     // const fontSize = isMobile ? 0.10 : 0.35
     const width = viewport.width
     const fontSize = isMobile ? width * 0.06 : width * 0.07
-    const positionX = isMobile ? 0.1 : 0.16
+    const positionX = isMobile ? 0.04 : 0.16
     return (
         <>
             <group position={[positionX, -2, 0]}>
