@@ -3,7 +3,7 @@ import { useGLTF, useScroll } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 
 export function Mars(props) {
-    const { nodes, materials } = useGLTF('./models/mars2.glb')
+    const { nodes, materials } = useGLTF('./models/compressed/mars2.glb')
 
     const scroll = useScroll()
     const [marsScale, setMarsScale] = useState([0, 0, 0])
@@ -23,4 +23,4 @@ export function Mars(props) {
     )
 }
 
-useGLTF.preload('./models/mars2.glb')
+useGLTF.preload('./models/compressed/mars2.glb')
