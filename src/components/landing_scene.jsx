@@ -155,17 +155,20 @@ const LandingScene = ({ eventsData }) => {
             <group ref={cameraGroup}>
                 <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
                 <group ref={airplane}>
-                    <Float intensity={1} speed={1}>
+                    <Suspense fallback={<></>}>
 
-                        <SpaceShuttle
-                            ref={spaceShuttleRef}
-                            rotation-y={-Math.PI / 2}
-                            scale={spaceShuttleScale}
-                            position-y={-0.15}
-                            position-x={0}
-                        />
+                        <Float intensity={1} speed={1}>
 
-                    </Float>
+                            <SpaceShuttle
+                                ref={spaceShuttleRef}
+                                rotation-y={-Math.PI / 2}
+                                scale={spaceShuttleScale}
+                                position-y={-0.15}
+                                position-x={0}
+                            />
+
+                        </Float>
+                    </Suspense>
                 </group>
             </group>
             <group position-y={-2}>
