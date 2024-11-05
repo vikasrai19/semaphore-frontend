@@ -23,7 +23,7 @@ const PaymentDetails = () => {
         <>
             <div className="w-full min-h-full border rounded-lg bg-white p-4 space-y-6">
                 <h3 className="font-dosisBold mb-3"> Payment History </h3>
-                <CustomTable rows={['S.I. No', 'Account Holder Name', 'Phone Number', 'Amount', 'UPI ID', 'Transaction ID', 'Status']} >
+                <CustomTable rows={['S.I. No', 'Account Holder Name', 'Phone Number', 'Amount', 'UPI ID', 'Transaction ID', 'Remarks', 'Status']} >
                     {paymentHistory?.map((ele, index) => {
                         return (
                             <>
@@ -51,7 +51,10 @@ const PaymentDetails = () => {
                                         {ele?.transactionId}
                                     </td>
                                     <td className="px-2 py-3 font-medium text-gray-700 whitespace-nowrap">
-                                        {ele?.status.status}
+                                        {ele?.remarks ?? ''}
+                                    </td>
+                                    <td className="px-2 py-3 font-medium text-gray-700 whitespace-nowrap">
+                                        {ele?.status?.status}
                                     </td>
                                 </tr>
                             </>

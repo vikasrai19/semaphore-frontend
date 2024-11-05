@@ -4,7 +4,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { useMediaQuery } from 'react-responsive'
 
 export function Moon(props) {
-    const { nodes, materials } = useGLTF('./models/moon2.glb')
+    const { nodes, materials } = useGLTF('./models/compressed/moon2.glb')
     const moonRef = useRef()
     const { viewport } = useThree()
 
@@ -28,4 +28,4 @@ export function Moon(props) {
     )
 }
 
-useGLTF.preload('./models/moon2.glb')
+useGLTF.preload('./models/compressed/moon2.glb')

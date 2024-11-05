@@ -4,7 +4,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { useMediaQuery } from 'react-responsive'
 
 export function Earth(props) {
-    const { nodes, materials } = useGLTF('./models/earth2.glb')
+    const { nodes, materials } = useGLTF('./models/compressed/earth2.glb')
     const earthRef = useRef()
     const { viewport } = useThree()
     const isMobile = useMediaQuery({ maxWidth: 768 })
@@ -35,4 +35,4 @@ export function Earth(props) {
     )
 }
 
-useGLTF.preload('./models/earth2.glb')
+useGLTF.preload('./models/compressed/earth2.glb')

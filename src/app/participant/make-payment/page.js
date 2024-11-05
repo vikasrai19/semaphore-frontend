@@ -4,6 +4,7 @@ import { useCached } from "@/hooks/useCached";
 import { useSubmit } from "@/hooks/useSubmit";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
 const MakePayment = () => {
@@ -11,6 +12,7 @@ const MakePayment = () => {
     const { cached } = useCached('isAuthenticated')
     const { submitData, isLoading: isSubmitting } = useSubmit()
     const router = useRouter()
+    const queryClient = useQueryClient()
 
     const handleAcceptPayment = async (e) => {
         e.preventDefault()
@@ -23,6 +25,7 @@ const MakePayment = () => {
             )
             if (data) {
                 toast.success('Payment Accepted')
+                queryClient.invalidateQueries('paymentHistory')
                 setTimeout(() => {
                     router.push('/participant/payment-details')
                 }, 1500)
