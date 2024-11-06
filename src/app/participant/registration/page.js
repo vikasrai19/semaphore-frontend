@@ -107,6 +107,18 @@ const RegisterSection = ({ eventList }) => {
         e.preventDefault()
         if (isSubmitting === true) return
         try {
+            let phoneNumberList = []
+            inputData?.map((ele, index) => {
+                ele?.memberList?.map((el, ind) => {
+                    if (!phoneNumberList?.includes(el?.memberPhoneNumber)) {
+                        phoneNumberList?.push(el?.memberPhoneNumber)
+                    }
+                })
+            })
+            if (phoneNumberList?.length > 15) {
+                toast.error('Maximum 15 participants allowed')
+                return
+            }
             const { data } = await handleSubmit(
                 `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/CompleteRegistration`,
                 {
