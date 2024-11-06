@@ -1,7 +1,7 @@
 'use client';
 
 
-import { Float, PerspectiveCamera, Text, useScroll } from '@react-three/drei';
+import { Float, PerspectiveCamera, Text, useGLTF, useScroll } from '@react-three/drei';
 import { Moon } from './moon';
 import { Mars } from './mars';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -19,6 +19,15 @@ import { ModelLoading } from './event_details_component';
 import { RocketLoader } from './model_components/rocket_loader';
 
 const LINE_NB_POINTS = 2000;
+
+useGLTF.preload('./models/compressed/earth2.glb')
+useGLTF.preload('./models/compressed/moon2.glb')
+useGLTF.preload('./models/compressed/mars2.glb')
+useGLTF.preload('./models/earth2.glb')
+useGLTF.preload('./models/moon2.glb')
+useGLTF.preload('./models/mars2.glb')
+useGLTF.preload('./models/space_shuttle.glb')
+console.log("preloading")
 
 const LandingScene = ({ eventsData }) => {
     const router = useRouter()
@@ -108,13 +117,13 @@ const LandingScene = ({ eventsData }) => {
         <>
             <ambientLight intensity={1} />
 
-            <Suspense fallback={<RocketLoader scale={[isMobile ? 0.15 : 0.35, isMobile ? 0.15 : 0.35, isMobile ? 0.15 : 0.35]} position={[isMobile ? -0.25 : -1.2, isMobile ? -2 : -2, 0]} />}>
+            {/* <Suspense fallback={<RocketLoader scale={[isMobile ? 0.15 : 0.35, isMobile ? 0.15 : 0.35, isMobile ? 0.15 : 0.35]} position={[isMobile ? -0.25 : -1.2, isMobile ? -2 : -2, 0]} />}> */}
 
-                <Earth />
-            </Suspense>
-            <Suspense fallback={<></>}>
-                <Moon />
-            </Suspense>
+            <Earth />
+            {/* </Suspense> */}
+            {/* <Suspense fallback={<></>}> */}
+            <Moon />
+            {/* </Suspense> */}
             <SemaphoreTitle />
             <Button3D label={'Login'} position={[isMobile ? 0.6 : 4.3, isMobile ? 0.3 : 0.7, -6]} scale={[1, 1, 1]} onClick={() => {
                 toast.info("Loading Login Page .. please wait")
@@ -124,10 +133,10 @@ const LandingScene = ({ eventsData }) => {
                 toast.info("Loading Register Page .. please wait")
                 router.push(`/register`)
             }} />
-            <Suspense fallback={<ModelLoading />}>
+            {/* <Suspense fallback={<ModelLoading />}> */}
 
-                <Mars position={[-1, -5, -300]} />
-            </Suspense>
+            <Mars position={[-1, -5, -300]} />
+            {/* </Suspense> */}
             <group position={[0, isMobile ? -3.7 : -3.9, -6]}>
                 <Text
                     textAlign="center"
@@ -155,20 +164,20 @@ const LandingScene = ({ eventsData }) => {
             <group ref={cameraGroup}>
                 <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
                 <group ref={airplane}>
-                    <Suspense fallback={<></>}>
+                    {/* <Suspense fallback={<></>}> */}
 
-                        <Float intensity={1} speed={1}>
+                    <Float intensity={1} speed={1}>
 
-                            <SpaceShuttle
-                                ref={spaceShuttleRef}
-                                rotation-y={-Math.PI / 2}
-                                scale={spaceShuttleScale}
-                                position-y={-0.15}
-                                position-x={0}
-                            />
+                        <SpaceShuttle
+                            ref={spaceShuttleRef}
+                            rotation-y={-Math.PI / 2}
+                            scale={spaceShuttleScale}
+                            position-y={-0.15}
+                            position-x={0}
+                        />
 
-                        </Float>
-                    </Suspense>
+                    </Float>
+                    {/* </Suspense> */}
                 </group>
             </group>
             <group position-y={-2}>
