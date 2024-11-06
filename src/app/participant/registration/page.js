@@ -263,3 +263,4 @@ const RegistrationDetailCard1 = ({ name, value }) => {
 }
 
 export default ParticipantRegistrationPage
+export { MemberCard, RegistrationDetailCard1 }
