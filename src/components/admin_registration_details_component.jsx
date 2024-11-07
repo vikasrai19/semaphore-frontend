@@ -12,7 +12,7 @@ const AdminRegistrationDetailsComponent = () => {
     const userId = searchParams.get('userId')
 
     const { data: registrationData, isLoading: isRegistrationDataLoading } = useGetData(
-        `registrationDetails`,
+        `${userId}registrationDetails`,
         `${process.env.NEXT_PUBLIC_URL}/web/api/registration/v1/GetRegistrationDetails?userId=${userId}`,
         useQueryConfig,
     )
