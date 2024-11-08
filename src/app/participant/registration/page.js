@@ -14,6 +14,7 @@ const ParticipantRegistrationPage = () => {
 
     const { cached } = useCached('isAuthenticated')
     const router = useRouter()
+    // console.log('cached ', cached)
 
     const { data: isPaymentPending, isLoading: isPaymentPendingLoading } = useGetData(
         `isPaymentPending`,
@@ -114,6 +115,8 @@ const RegisterSection = ({ eventList }) => {
                     eventRegistrationDetails: inputData,
                 }
             )
+            
+
             if (data) {
                 toast.success('Event registration successful')
                 setTimeout(() => {

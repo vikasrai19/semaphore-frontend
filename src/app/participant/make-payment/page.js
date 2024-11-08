@@ -23,6 +23,7 @@ const MakePayment = () => {
                 `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/AcceptPaymentDetails`,
                 body
             )
+            
             if (data) {
                 toast.success('Payment Accepted')
                 queryClient.invalidateQueries('paymentHistory')
