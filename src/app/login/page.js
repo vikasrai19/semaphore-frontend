@@ -77,6 +77,8 @@ export default function Login_Page() {
             router.push('/superuser')
         } else if (userType == "event head") {
             router.push('/event-heads')
+        } else if (userType === 'admin') {
+            router.push('/admin')
         } else {
             router.push('/error')
         }

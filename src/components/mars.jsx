@@ -23,4 +23,4 @@ export function Mars(props) {
     )
 }
 
-useGLTF.preload('./models/compressed/mars2.glb')
+// useGLTF.preload('./models/compressed/mars2.glb')

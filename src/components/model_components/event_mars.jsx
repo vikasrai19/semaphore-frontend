@@ -23,4 +23,4 @@ export function EventMars(props) {
     )
 }
 
-useGLTF.preload('./models/mars2.glb')
+// useGLTF.preload('./models/mars2.glb')

@@ -15,19 +15,8 @@ import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/navigation';
 import { Button3D } from './button_3d';
 import { toast } from 'react-toastify';
-import { ModelLoading } from './event_details_component';
-import { RocketLoader } from './model_components/rocket_loader';
 
 const LINE_NB_POINTS = 2000;
-
-useGLTF.preload('./models/compressed/earth2.glb')
-useGLTF.preload('./models/compressed/moon2.glb')
-useGLTF.preload('./models/compressed/mars2.glb')
-useGLTF.preload('./models/earth2.glb')
-useGLTF.preload('./models/moon2.glb')
-useGLTF.preload('./models/mars2.glb')
-useGLTF.preload('./models/space_shuttle.glb')
-console.log("preloading")
 
 const LandingScene = ({ eventsData }) => {
     const router = useRouter()
@@ -54,7 +43,7 @@ const LandingScene = ({ eventsData }) => {
             new THREE.Vector3(1, -2, -225),
             new THREE.Vector3(-1, -2, -250),
             new THREE.Vector3(-1, -2, -275),
-            new THREE.Vector3(-1, -2, -300),
+            new THREE.Vector3(-1, -2, -290),
         ],
             false,
             "catmullrom",
@@ -116,14 +105,8 @@ const LandingScene = ({ eventsData }) => {
     return (
         <>
             <ambientLight intensity={1} />
-
-            {/* <Suspense fallback={<RocketLoader scale={[isMobile ? 0.15 : 0.35, isMobile ? 0.15 : 0.35, isMobile ? 0.15 : 0.35]} position={[isMobile ? -0.25 : -1.2, isMobile ? -2 : -2, 0]} />}> */}
-
             <Earth />
-            {/* </Suspense> */}
-            {/* <Suspense fallback={<></>}> */}
             <Moon />
-            {/* </Suspense> */}
             <SemaphoreTitle />
             <Button3D label={'Login'} position={[isMobile ? 0.6 : 4.3, isMobile ? 0.3 : 0.7, -6]} scale={[1, 1, 1]} onClick={() => {
                 toast.info("Loading Login Page .. please wait")
@@ -133,10 +116,8 @@ const LandingScene = ({ eventsData }) => {
                 toast.info("Loading Register Page .. please wait")
                 router.push(`/register`)
             }} />
-            {/* <Suspense fallback={<ModelLoading />}> */}
 
             <Mars position={[-1, -5, -300]} />
-            {/* </Suspense> */}
             <group position={[0, isMobile ? -3.7 : -3.9, -6]}>
                 <Text
                     textAlign="center"
