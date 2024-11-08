@@ -6,7 +6,7 @@ import ScoreboardTwoToneIcon from '@mui/icons-material/ScoreboardTwoTone';
 import AnnouncementTwoToneIcon from '@mui/icons-material/AnnouncementTwoTone';
 import QuizTwoToneIcon from '@mui/icons-material/QuizTwoTone';
 
-const Widgets = ({ type = "user" }) => {
+const Widgetsv = ({ type = "user" }) => {
     // Default type is "user"
     let data;
     const amount = 100;
@@ -69,4 +69,4 @@ const Widgets = ({ type = "user" }) => {
     );
 };
 
-export default Widgets;
+export default Widgetsv;

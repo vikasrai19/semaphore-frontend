@@ -28,7 +28,7 @@ const NavBar = ({ showSidebar, setShowSidebar }) => {
                     <Logout03Icon color="#000" className="cursor-pointer" onClick={() => {
                         logout()
                         toast.success("Logout Success")
-                        queryClient.invalidateQueries([])
+                        queryClient.invalidateQueries()
                         router.push('/login')
                     }} />
                 </div>

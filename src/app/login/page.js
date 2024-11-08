@@ -19,7 +19,7 @@ export default function Login_Page() {
     const { submitData: loginUser, isLoading: isLoading } = useSubmit()
     const { setLoginToken, token } = useAuthStore()
     const { data: authData, isLoading: isAuthLoading } = useGetData(
-        `isAuthenticted`,
+        `isAuthenticted`,   
         `${process.env.NEXT_PUBLIC_URL}/web/api/auth/v1/IsAuthenticated?token=${token}`,
         useQueryConfig,
     )
