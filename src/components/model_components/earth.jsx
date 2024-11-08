@@ -1,4 +1,6 @@
-import React, { useRef } from 'react'
+'use client'
+
+import React, { useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 
@@ -23,4 +25,4 @@ export function Earth2(props) {
     )
 }
 
-useGLTF.preload('./models/compressed/earth2.glb')
+// useGLTF.preload('./models/compressed/earth2.glb')
