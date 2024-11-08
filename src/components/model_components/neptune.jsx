@@ -17,4 +17,4 @@ export function Neptune(props) {
     )
 }
 
-useGLTF.preload('./models/neptune.glb')
+// useGLTF.preload('./models/neptune.glb')

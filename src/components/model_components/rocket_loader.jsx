@@ -20,4 +20,4 @@ export function RocketLoader(props) {
     )
 }
 
-useGLTF.preload('./models/rocket_model.glb')
+// useGLTF.preload('./models/rocket_model.glb')

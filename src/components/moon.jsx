@@ -28,4 +28,4 @@ export function Moon(props) {
     )
 }
 
-useGLTF.preload('./models/compressed/moon2.glb')
+// useGLTF.preload('./models/compressed/moon2.glb')

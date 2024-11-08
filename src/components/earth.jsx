@@ -1,7 +1,10 @@
-import React, { use, useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+'use client'
+
+import React, { use, useEffect, useRef, useState } from 'react'
+import { Html, useGLTF } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useMediaQuery } from 'react-responsive'
+import { useInView } from 'react-intersection-observer'
 
 export function Earth(props) {
     const { nodes, materials } = useGLTF('./models/compressed/earth2.glb')
@@ -35,4 +38,4 @@ export function Earth(props) {
     )
 }
 
-useGLTF.preload('./models/compressed/earth2.glb')
+

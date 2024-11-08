@@ -66,6 +66,10 @@ export default function Register_Page() {
 
             const formData = new FormData(e.target);
             const body = Object.fromEntries(formData);
+            if (body?.phoneNumber?.toString().length != 10) {
+                toast.info("Phone Number should be exactly 10 digits")
+                return
+            }
             const { data } = await registerUser(
                 `${process.env.NEXT_PUBLIC_URL}/web/api/registration/v1/RegisterParticipant`,
                 body,
