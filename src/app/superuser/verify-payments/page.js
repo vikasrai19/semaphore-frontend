@@ -61,7 +61,7 @@ const VerifyPaymentsPage = () => {
                 `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/VerifyTransaction`,
                 {
                     paymentId: selectPaymentId,
-                    useId: cached?.userId,
+                    userId: cached?.userId,
                 }
             )
             if (data) {
