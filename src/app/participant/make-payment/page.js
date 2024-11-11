@@ -21,7 +21,10 @@ const MakePayment = () => {
         try {
             const { data } = await submitData(
                 `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/AcceptPaymentDetails`,
-                body
+                {
+                    ...body,
+                    userId: cached?.userId,
+                }
             )
             if (data) {
                 toast.success('Payment Accepted')
