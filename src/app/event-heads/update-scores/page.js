@@ -12,8 +12,8 @@ export default function UpdateScores() {
     const { cached } = useCached('isAuthenticated')
 
     const { data: totalRounds, isLoading: isTotalRoundsLoading } = useGetData(
-        `collegeList`,
-        `${process.env.NEXT_PUBLIC_URL}web/api/events/v1/GetEventMaxRounds?${cached?.userId}`,
+        `totalRounds`,
+        `${process.env.NEXT_PUBLIC_URL}/web/api/events/v1/GetEventMaxRounds?${cached?.userId}`,
         useQueryConfig
     )
 
@@ -45,9 +45,8 @@ export default function UpdateScores() {
                 ]
             )
         }
-        fetchData();
-        if(!isTotalRoundsLoading)
-            console.log(totalRounds);
+        fetchData();    
+            console.log(cached?.userId);
 
     }, []);
 

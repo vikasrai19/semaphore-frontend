@@ -23,8 +23,6 @@ export default function Login_Page() {
         `${process.env.NEXT_PUBLIC_URL}/web/api/auth/v1/IsAuthenticated?token=${token}`,
         useQueryConfig,
     )
-    localStorage.getItem('auth-header');
-
 
     if (authData) {
         const userType = authData?.userType?.userType?.toLowerCase()
