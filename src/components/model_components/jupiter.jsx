@@ -11,10 +11,6 @@ export function Jupiter(props) {
     useFrame(() => {
         ref.current.rotation.y += 0.0075
     })
-
-    useEffect(() => {
-        console.log("jupiter loaded")
-    }, [])
     return (
         <>
             <directionalLight

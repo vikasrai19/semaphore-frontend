@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { EyeIcon, ViewOffSlashIcon } from "hugeicons-react"
 const TextInput = ({ name, label, value, placeholder, onChange, icon, type = 'text', isRequired = true }, props) => {
-
     return (
         <>
             <div className="mb-4 w-full">
