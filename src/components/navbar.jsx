@@ -20,7 +20,7 @@ const NavBar = ({ showSidebar, setShowSidebar }) => {
                 </div>
                 <div className="flex flex-col space-y-1">
                     <p className="text-md font-dosisBold lg:text-[20px]">{cached?.fullName}</p>
-                    <p className="text-xs font-dosisMedium lg:text-[14px]">{cached?.userType.userType}</p>
+                    <p className="text-xs font-dosisMedium lg:text-[14px]">{cached?.userType?.userType}</p>
                 </div>
                 <div className="flex flex-row space-x-2 lg:space-x-8">
                     <Notification01Icon color="#000" className="cursor-pointer" onClick={() => toast.info("Feature coming soon !!")} />
