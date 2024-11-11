@@ -1,4 +1,6 @@
-import React, { useRef } from 'react'
+'use client'
+
+import React, { useEffect, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 
@@ -23,4 +25,4 @@ export function Jupiter(props) {
     )
 }
 
-useGLTF.preload('./models/jupiter.glb')
+// useGLTF.preload('./models/jupiter.glb')

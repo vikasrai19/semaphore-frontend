@@ -23,4 +23,4 @@ export function Pluto(props) {
     )
 }
 
-useGLTF.preload('./models/pluto.glb')
+// useGLTF.preload('./models/pluto.glb')
