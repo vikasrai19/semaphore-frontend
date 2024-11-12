@@ -26,6 +26,7 @@ const MakePayment = () => {
                     userId: cached?.userId,
                 }
             )
+            
             if (data) {
                 toast.success('Payment Accepted')
                 queryClient.invalidateQueries('paymentHistory')
