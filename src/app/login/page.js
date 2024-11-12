@@ -68,13 +68,14 @@ export default function Login_Page() {
 
     const handleRouting = (data) => {
         const userType = data?.userType?.toLowerCase();
-        console.log("user type ", userType)
         if (userType == "participant") {
             router.push('/participant')
         } else if (userType == "super user") {
             router.push('/superuser')
         } else if (userType == "event head") {
             router.push('/event-heads')
+        } else if (userType === 'admin') {
+            router.push('/admin')
         } else {
             router.push('/error')
         }

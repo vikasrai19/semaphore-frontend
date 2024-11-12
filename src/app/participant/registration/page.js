@@ -14,6 +14,7 @@ const ParticipantRegistrationPage = () => {
 
     const { cached } = useCached('isAuthenticated')
     const router = useRouter()
+    // console.log('cached ', cached)
 
     const { data: isPaymentPending, isLoading: isPaymentPendingLoading } = useGetData(
         `isPaymentPending`,
@@ -39,7 +40,7 @@ const ParticipantRegistrationPage = () => {
 
     return (
         <>
-            {isPaymentPending === true && <>
+            {isPaymentPending === true && isAlreadyRegistered === true && <>
                 <div className="flex flex-col space-y-3 border p-4 bg-white rounded-lg mb-3">
                     <h3 className="text-red-600 font-dosisBold">Payment Pending !</h3>
                     <p> Please complete your payment procedure for successful registration </p>
@@ -75,7 +76,8 @@ const RegisterSection = ({ eventList }) => {
                 memberCount: ele?.memberCount,
                 memberList: []
             }
-            for (let i = 0; i < ele?.memberCount; i++) {
+            const loopCount = ele?.eventName?.toLowerCase() == 'dance' ? 12 : ele?.memberCount
+            for (let i = 0; i < loopCount; i++) {
                 eventData?.memberList?.push({
                     memberName: '',
                     memberPhoneNumber: ''
@@ -107,6 +109,55 @@ const RegisterSection = ({ eventList }) => {
         e.preventDefault()
         if (isSubmitting === true) return
         try {
+            let itManagerPhoneNumber = '';
+            inputData?.map((ele) => {
+                if (ele?.eventName?.toLowerCase() === 'it manager') {
+                    itManagerPhoneNumber = ele?.memberList[0]?.memberPhoneNumber
+                }
+            })
+            let photoGraphy = []
+            inputData?.map((ele) => {
+                if (ele?.eventName?.toLowerCase() === 'photography') {
+                    photoGraphy.push(ele?.memberList[0]?.memberPhoneNumber)
+                }
+            })
+
+            let phoneNumberList = []
+            let isError = false;
+
+
+            inputData?.map((ele, index) => {
+                ele?.memberList?.map((el, ind) => {
+                    if (el?.memberName !== '' && el?.memberPhoneNumber?.toString()?.length !== 10) {
+                        toast.error('Phone Number must be exactly 10 digits')
+                        isError = true;
+                        return
+                    }
+                    if (el?.memberPhoneNumber?.toString() !== '') {
+                        if (ele?.eventName?.toLowerCase() !== 'it manager' && el?.memberPhoneNumber === itManagerPhoneNumber) {
+                            toast.error('IT Manager candidate cannot participate in dance')
+                            isError = true;
+                            return
+                        }
+                        if (ele?.eventName?.toLowerCase() !== 'photography' && photoGraphy?.includes(el?.memberPhoneNumber)) {
+                            toast.error('Photography event candidate cannot participate in dance')
+                            isError = true;
+                            return
+                        }
+                        if (!phoneNumberList?.includes(el?.memberPhoneNumber)) {
+                            phoneNumberList?.push(el?.memberPhoneNumber)
+                        }
+                    }
+                })
+            })
+            if (phoneNumberList?.length > 15) {
+                toast.error('Maximum 15 participants allowed')
+                isError = true
+                return
+            }
+            if (isError === true) {
+                return
+            }
             const { data } = await handleSubmit(
                 `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/CompleteRegistration`,
                 {
@@ -114,6 +165,8 @@ const RegisterSection = ({ eventList }) => {
                     eventRegistrationDetails: inputData,
                 }
             )
+            
+
             if (data) {
                 toast.success('Event registration successful')
                 setTimeout(() => {
@@ -145,7 +198,7 @@ const RegisterSection = ({ eventList }) => {
                                                         label={`Member ${ind + 1} Participant Name`}
                                                         placeholder="Enter Name"
                                                         type="text"
-                                                        isRequired={true}
+                                                        isRequired={ind < 4 ? true : false}
                                                         value={ele?.memberName}
                                                         onChange={(e) => handleInputChange(index, ind, 'memberName', e.target.value)}
                                                     />
@@ -154,7 +207,7 @@ const RegisterSection = ({ eventList }) => {
                                                         label={`Member ${ind + 1} Phone Number`}
                                                         placeholder="Enter Phone Number"
                                                         type="number"
-                                                        isRequired={true}
+                                                        isRequired={ind < 4 ? true : false}
                                                         value={ele?.memberPhoneNumber}
                                                         onChange={(e) => handleInputChange(index, ind, 'memberPhoneNumber', e.target.value)}
                                                     />
@@ -183,6 +236,7 @@ const RegisterSection = ({ eventList }) => {
 
 const AlreadyRegisteredSection = () => {
     const { cached } = useCached('isAuthenticated')
+    const router = useRouter();
     const { data: registrationData, isLoading: isRegistrationDataLoading } = useGetData(
         `registrationDetails`,
         `${process.env.NEXT_PUBLIC_URL}/web/api/registration/v1/GetRegistrationDetails?userId=${cached?.userId}`,
@@ -221,6 +275,15 @@ const AlreadyRegisteredSection = () => {
                         )
                     })}
                 </div>
+                <div className="flex justify-center w-full font-dosisMedium">
+                    <button
+                        className="w-1/2 bg-blue-950 text-white py-2 rounded-md text-lg font-dosisBold hover:bg-blue-700 transition duration-300 cursor-pointer"
+                        type="button"
+                        onClick={() => router.push('/participant/edit-team-details')}
+                    >
+                        Update Details
+                    </button>
+                </div>
             </div>
         </>
     )
@@ -251,3 +314,4 @@ const RegistrationDetailCard1 = ({ name, value }) => {
 }
 
 export default ParticipantRegistrationPage
+export { MemberCard, RegistrationDetailCard1 }

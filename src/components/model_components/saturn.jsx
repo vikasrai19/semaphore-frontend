@@ -25,4 +25,4 @@ export function Saturn(props) {
     )
 }
 
-useGLTF.preload('./models/saturn.glb')
+// useGLTF.preload('./models/saturn.glb')

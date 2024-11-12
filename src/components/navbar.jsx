@@ -2,10 +2,11 @@ import { useCached } from "@/hooks/useCached"
 import { useAuthStore } from "@/store"
 import { Menu03Icon, Notification01Icon, Logout03Icon, Notification03Icon } from "hugeicons-react"
 import { useRouter } from "next/navigation"
+import { useQueryClient } from "react-query"
 import { toast } from "react-toastify"
 
 const NavBar = ({ showSidebar, setShowSidebar }) => {
-
+    const queryClient = useQueryClient()
     const { logout } = useAuthStore()
     const router = useRouter()
     const { cached } = useCached('isAuthenticated')
@@ -27,6 +28,7 @@ const NavBar = ({ showSidebar, setShowSidebar }) => {
                     <Logout03Icon color="#000" className="cursor-pointer" onClick={() => {
                         logout()
                         toast.success("Logout Success")
+                        queryClient.invalidateQueries()
                         router.push('/login')
                     }} />
                 </div>
