@@ -33,8 +33,6 @@ export default function UpdateScores() {
       useQueryConfig
     );
 
-  console.log('event details ', eventTeamDetails)
-
   useEffect(() => {
     if (eventTeamDetails) {
       let newList = [];
