@@ -1,6 +1,7 @@
 "use client";
 import { DropDown } from "@/components/dropdown";
 import { TextInput } from "@/components/input";
+import { Loading } from "@/components/loading";
 import { useQueryConfig } from "@/config/useQuery.config";
 import { useCached } from "@/hooks/useCached";
 import { useGetData } from "@/hooks/useGetData";
@@ -17,22 +18,22 @@ export default function UpdateScores() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // const { data: totalRounds, isLoading: isTotalRoundsLoading } = useGetData(
-  //   `totalRounds`,
-  //   `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/GetTeamScoresForEventHeads?${cached?.userId}&roundNo=1`,
-  //   useQueryConfig
-  // );
+  const { data: totalRounds, isLoading: isTotalRoundsLoading } = useGetData(
+    `totalRounds`,
+    `${process.env.NEXT_PUBLIC_URL}/web/api/events/v1/GetEventMaxRounds?${cached?.userId}&roundNo=1`,
+    useQueryConfig
+  );
 
   const { data: eventTeamDetails, isLoading: isTeamDetailsLoading } =
     useGetData(
       `${searchParams.get("roundNo")}eventDetailsData`,
-      `${
-        process.env.NEXT_PUBLIC_URL
-      }/web/api/mainEvent/v1/GetTeamScoresForEventHeads?${
-        cached?.userId
+      `${process.env.NEXT_PUBLIC_URL
+      }/web/api/mainEvent/v1/GetTeamScoresForEventHeads?userId=${cached?.userId
       }&roundNo=${searchParams.get("roundNo")}`,
       useQueryConfig
     );
+
+  console.log('event details ', eventTeamDetails)
 
   useEffect(() => {
     if (eventTeamDetails) {
@@ -40,7 +41,7 @@ export default function UpdateScores() {
       eventTeamDetails?.map((ele) => {
         const newData = {
           teamId: ele?.eventTeam?.eventTeamId,
-          score: ele?.score,
+          marks: ele?.score,
           collegeName: ele?.eventTeam?.registration?.college?.collegeName,
           teamName: ele?.eventTeam?.registration?.teamName,
         };
@@ -50,16 +51,14 @@ export default function UpdateScores() {
     }
   }, [eventTeamDetails]);
 
-  console.log("team details ", eventTeamDetails);
 
   const handleInputChange = (e, index) => {
     const updatedTeamData = [...teamData];
-    updatedTeamData[index].score = parseInt(e.target.value) || 0;
+    updatedTeamData[index].marks = parseInt(e.target.value) || 0;
     setTeamData(updatedTeamData);
   };
 
   const handleRoundChange = (selectedRound) => {
-    console.log("selected round ", selectedRound);
     setRoundNo(selectedRound);
     router.push("/event-heads/update-scores?roundNo=" + selectedRound);
   };
@@ -79,10 +78,11 @@ export default function UpdateScores() {
         toast.success("Successfully Updated The Score");
       }
     } catch (error) {
-      console.error(error);
       toast.error("There was an error updating the scores.");
     }
   };
+
+  if (isTotalRoundsLoading) return <Loading />
 
   return (
     <div className="bg-gray-100 flex items-center justify-center font-dosisRegular">
@@ -92,7 +92,7 @@ export default function UpdateScores() {
           <DropDown
             name={"round"}
             label="Select Round"
-            DropDownItems={Array(3)
+            DropDownItems={Array(totalRounds)
               .fill("")
               ?.map((ele, index) => ({
                 label: "Round " + (index + 1),
@@ -123,12 +123,12 @@ export default function UpdateScores() {
             <TextInput
               name={""}
               label={""}
-              value={team?.score}
+              value={team?.marks}
               onChange={(e) => {
                 setTeamData((prevData) =>
                   prevData.map((ele) =>
                     team.teamId === ele?.teamId
-                      ? { ...ele, score: e.target.value }
+                      ? { ...ele, marks: e.target.value }
                       : ele
                   )
                 );
