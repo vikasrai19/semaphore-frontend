@@ -95,22 +95,3 @@ export default function accolades() {
     </div>
   )
 }
-
-// const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const formData = new FormData(e.target);
-//     const body = Object.fromEntries(formData);
-//     try {
-//         const { data } = await loginUser(
-//             `${process.env.NEXT_PUBLIC_URL}/web/api/auth/v1/Login`,
-//             body,
-//         )
-//         if (data) {
-//             toast.success("Login Success")
-//             await setLoginToken(data)
-//             handleRouting(data)
-//         }
-//     } catch (error) {
-//         toast.error(error?.response?.data?.message ?? error?.message ?? 'Login failed')
-//     }
-// }
