@@ -43,12 +43,12 @@ function DropDown({
 
     return (
         <>
-            <div className={`flex flex-col space-y-1 ${className} w-full`}>
+            <div className={`font-dosisMedium flex flex-col space-y-1 ${className} w-full`}>
                 <label htmlFor="" className={`font-medium ${textColor} text-[13px]`}>
                     {label}{' '}
                     {isRequired && label != '' && <span className="text-red-500">*</span>}
                 </label>
-                <Select className="w-full" name={name} required>
+                <Select className="w-full" name={name} onValueChange={onChangeFunction} required>
                     <SelectTrigger className='w-full border' >
                         <SelectValue placeholder={placeholder} />
                     </SelectTrigger>

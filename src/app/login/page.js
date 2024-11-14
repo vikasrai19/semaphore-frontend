@@ -76,6 +76,8 @@ export default function Login_Page() {
             router.push('/event-heads')
         } else if (userType === 'admin') {
             router.push('/admin')
+        } else if(userType === 'accolades'){
+            router.push('/accolades')
         } else {
             router.push('/error')
         }

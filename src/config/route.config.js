@@ -80,3 +80,16 @@ export const adminMenuItems = [
         icon: <File02Icon color='#000' />,
     },
 ];
+
+export const accoMenuItems = [
+    {
+        name : 'Dashboard',
+        link : '/accolades',
+        icon : <DashboardSquare01Icon color='#000' />
+    },
+    {
+        name : 'Score Sheet',
+        link : '/accolades/score-sheet',
+        icon : <CheckmarkBadge04Icon color='#000' />
+    }
+]
