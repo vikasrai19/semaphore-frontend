@@ -53,14 +53,14 @@ export const eventHeadMenu = [
     icon: <RankingIcon color="#000" />,
   },
   {
-    name: "Registration Details",
-    link: `/event-heads/registration-details`,
-    icon: <Note04Icon color="#000" />,
-  },
-  {
     name: "Promote",
     link: `/event-heads/promote-participants`,
     icon: <PromotionIcon color="#000" />,
+  },
+  {
+    name: "Registration Details",
+    link: `/event-heads/registration-details`,
+    icon: <Note04Icon color="#000" />,
   },
 ];
 

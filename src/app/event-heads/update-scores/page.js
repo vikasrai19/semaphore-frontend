@@ -4,12 +4,12 @@ import { TextInput } from "@/components/input";
 import { useQueryConfig } from "@/config/useQuery.config";
 import { useCached } from "@/hooks/useCached";
 import { useGetData } from "@/hooks/useGetData";
-import { useSubmit } from "@/hooks/useSubmit"; // Make sure this import path is correct
+import { useSubmit } from "@/hooks/useSubmit";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-export default function PromoteScores() {
+export default function UpdateScores() {
   const { submitData: updateScore, isLoading: isSubmitting } = useSubmit();
   const [teamData, setTeamData] = useState([]);
   const [roundNo, setRoundNo] = useState(null);
@@ -22,7 +22,7 @@ export default function PromoteScores() {
       `${searchParams.get("roundNo")}eventDetailsData`,
       `${
         process.env.NEXT_PUBLIC_URL
-      }/web/api/mainEvent/v1/GetTeamScoresForEventHeads?${
+      }/web/api/mainEvent/v1/GetTeamScoresForEventHeads?userId=${
         cached?.userId
       }&roundNo=${searchParams.get("roundNo")}`,
       useQueryConfig
@@ -48,7 +48,7 @@ export default function PromoteScores() {
 
   const handleRoundChange = (selectedRound) => {
     setRoundNo(selectedRound);
-    router.push(`/event-heads/promote-participants?roundNo=${selectedRound}`);
+    router.push(`/event-heads/update-scores?roundNo=${selectedRound}`);
   };
 
   const handleSubmit = async () => {
@@ -63,7 +63,7 @@ export default function PromoteScores() {
       );
 
       if (data) {
-        toast.success("Successfully Promoted Team");
+        toast.success("Successfully Updated The Score");
       }
     } catch (error) {
       console.error(error);
@@ -74,51 +74,59 @@ export default function PromoteScores() {
   return (
     <div className="bg-gray-100 flex items-center justify-center font-dosisRegular">
       <div className="bg-white w-full p-8 rounded-lg shadow-md">
+        {/* Select Round */}
         <div className="mb-8 w-48">
           <DropDown
-            name={"round"}
+            name="round"
             label="Select Round"
             DropDownItems={Array(3)
               .fill("")
               .map((_, index) => ({
-                label: `Round ${index + 1}`,
+                label: "Round " + (index + 1),
                 value: index + 1,
               }))}
-            placeholder={"Select Round"}
+            placeholder="Select Round"
             onChangeFunction={handleRoundChange}
           />
         </div>
 
-        <div className="grid grid-cols-5 gap-8 text-center font-dosisBold text-black mb-4">
+        {/* Table Header */}
+        <div className="grid grid-cols-4 gap-8 text-center font-dosisBold text-black mb-4">
           <div>S.I No</div>
           <div>Team Name</div>
           <div>College Name</div>
           <div>Score</div>
-          <div>Promote</div>
         </div>
 
-        {teamData?.map((team, index) => (
+        {/* Table Rows */}
+        {teamData.map((team, index) => (
           <div
             key={index}
-            className="grid grid-cols-5 gap-8 items-center text-center mb-4"
+            className="grid grid-cols-4 gap-8 items-center text-center mb-4"
           >
             <div className="font-dosisMedium">{index + 1}</div>
             <div className="font-dosisMedium">{team.teamName}</div>
             <div className="font-dosisMedium">{team.collegeName}</div>
-            <input
-              type="number"
+            <TextInput
+              name="score"
+              label=""
               value={team.score}
               onChange={(e) => handleInputChange(e, index)}
-              className="font-dosisMedium w-full text-center"
+              placeholder="Enter Score"
             />
-            <button
-              onClick={handleSubmit}
-              className="bg-blue-800 w-full text-white py-2 px-3 rounded-md font-dosisBold hover:bg-blue-700 transition duration-300"
-            >
-              Promote
-            </button>
           </div>
         ))}
+
+        {/* Update Button */}
+        <div className="flex justify-start mt-8">
+          <button
+            onClick={handleSubmit}
+            className="bg-blue-800 text-white py-3 px-6 rounded-md font-dosisBold hover:bg-blue-700 transition duration-300"
+            disabled={isSubmitting}
+          >
+            Update
+          </button>
+        </div>
       </div>
     </div>
   );
