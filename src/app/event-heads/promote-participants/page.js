@@ -4,7 +4,7 @@ import { TextInput } from "@/components/input";
 import { useQueryConfig } from "@/config/useQuery.config";
 import { useCached } from "@/hooks/useCached";
 import { useGetData } from "@/hooks/useGetData";
-import { useSubmit } from "@/hooks/useSubmit"; // Make sure this import path is correct
+import { useSubmit } from "@/hooks/useSubmit";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -16,6 +16,12 @@ export default function PromoteScores() {
   const { cached } = useCached("isAuthenticated");
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // const { data: totalRounds, isLoading: isTotalRoundsLoading } = useGetData(
+  //   `totalRounds`,
+  //   `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/GetTeamScoresForEventHeads?${cached?.userId}&roundNo=1`,
+  //   useQueryConfig
+  // );
 
   const { data: eventTeamDetails, isLoading: isTeamDetailsLoading } =
     useGetData(
@@ -30,15 +36,21 @@ export default function PromoteScores() {
 
   useEffect(() => {
     if (eventTeamDetails) {
-      const newList = eventTeamDetails.map((ele) => ({
-        teamId: ele?.eventTeam?.eventTeamId,
-        score: ele?.score,
-        collegeName: ele?.eventTeam?.registration?.college?.collegeName,
-        teamName: ele?.eventTeam?.registration?.teamName,
-      }));
+      let newList = [];
+      eventTeamDetails?.map((ele) => {
+        const newData = {
+          teamId: ele?.eventTeam?.eventTeamId,
+          score: ele?.score,
+          collegeName: ele?.eventTeam?.registration?.college?.collegeName,
+          teamName: ele?.eventTeam?.registration?.teamName,
+        };
+        newList.push(newData);
+      });
       setTeamData(newList);
     }
   }, [eventTeamDetails]);
+
+  console.log("team details ", eventTeamDetails);
 
   const handleInputChange = (e, index) => {
     const updatedTeamData = [...teamData];
@@ -47,8 +59,9 @@ export default function PromoteScores() {
   };
 
   const handleRoundChange = (selectedRound) => {
+    console.log("selected round ", selectedRound);
     setRoundNo(selectedRound);
-    router.push(`/event-heads/promote-participants?roundNo=${selectedRound}`);
+    router.push("/event-heads/promote-participants?roundNo=" + selectedRound);
   };
 
   const handleSubmit = async () => {
@@ -74,14 +87,15 @@ export default function PromoteScores() {
   return (
     <div className="bg-gray-100 flex items-center justify-center font-dosisRegular">
       <div className="bg-white w-full p-8 rounded-lg shadow-md">
+        {/* Select Round */}
         <div className="mb-8 w-48">
           <DropDown
             name={"round"}
             label="Select Round"
             DropDownItems={Array(3)
               .fill("")
-              .map((_, index) => ({
-                label: `Round ${index + 1}`,
+              ?.map((ele, index) => ({
+                label: "Round " + (index + 1),
                 value: index + 1,
               }))}
             placeholder={"Select Round"}
@@ -89,6 +103,7 @@ export default function PromoteScores() {
           />
         </div>
 
+        {/* Table Header */}
         <div className="grid grid-cols-5 gap-8 text-center font-dosisBold text-black mb-4">
           <div>S.I No</div>
           <div>Team Name</div>
@@ -97,6 +112,7 @@ export default function PromoteScores() {
           <div>Promote</div>
         </div>
 
+        {/* Table Rows */}
         {teamData?.map((team, index) => (
           <div
             key={index}
@@ -105,12 +121,7 @@ export default function PromoteScores() {
             <div className="font-dosisMedium">{index + 1}</div>
             <div className="font-dosisMedium">{team.teamName}</div>
             <div className="font-dosisMedium">{team.collegeName}</div>
-            <input
-              type="number"
-              value={team.score}
-              onChange={(e) => handleInputChange(e, index)}
-              className="font-dosisMedium w-full text-center"
-            />
+            <p>{team.score}</p>
             <button
               onClick={handleSubmit}
               className="bg-blue-800 w-full text-white py-2 px-3 rounded-md font-dosisBold hover:bg-blue-700 transition duration-300"
@@ -119,6 +130,8 @@ export default function PromoteScores() {
             </button>
           </div>
         ))}
+
+        {/* Update Button */}
       </div>
     </div>
   );

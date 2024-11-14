@@ -11,6 +11,7 @@ import {
   UserStatusIcon,
   UserIcon,
   File02Icon,
+  PromotionIcon,
 } from "hugeicons-react";
 
 export const participantMenu = [
@@ -55,6 +56,11 @@ export const eventHeadMenu = [
     name: "Registration Details",
     link: `/event-heads/registration-details`,
     icon: <Note04Icon color="#000" />,
+  },
+  {
+    name: "Promote",
+    link: `/event-heads/promote-participants`,
+    icon: <PromotionIcon color="#000" />,
   },
 ];
 
