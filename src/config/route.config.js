@@ -70,6 +70,11 @@ export const superUserMenu = [
     icon: <CreditCardPosIcon color="#000" />,
   },
   {
+    name: "Registration Details",
+    link: `/superuser/registration-list`,
+    icon: <Note04Icon color="#000" />,
+  },
+  {
     name: "Create User",
     link: `/superuser/create-user`,
     icon: <UserIcon color="#000" />,
