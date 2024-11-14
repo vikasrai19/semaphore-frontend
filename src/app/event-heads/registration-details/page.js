@@ -33,7 +33,7 @@ export default function page() {
             </div>
             <div>
               <span className="font-dosisMedium text-gray-600">College Name</span><br />
-              <span className="font-dosisMedium">{registration.collegeName || "Not Available"}</span> {/* Add actual college data if available */}
+              <span className="font-dosisMedium">{registration.registration.college.collegeName || "Not Available"}</span> {/* Add actual college data if available */}
             </div>
             <div>
               <span className="font-dosisMedium text-gray-600">Is Reported</span><br />
