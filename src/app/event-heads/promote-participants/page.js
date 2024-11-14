@@ -5,6 +5,7 @@ import { useQueryConfig } from "@/config/useQuery.config";
 import { useCached } from "@/hooks/useCached";
 import { useGetData } from "@/hooks/useGetData";
 import { useSubmit } from "@/hooks/useSubmit";
+import { ConsoleIcon } from "hugeicons-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -64,14 +65,13 @@ export default function PromoteScores() {
     router.push("/event-heads/promote-participants?roundNo=" + selectedRound);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (teamId) => {
     try {
       const { data } = await updateScore(
-        `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/UpdateTeamScoreForEventHeads`,
+        `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/PromoteTeamToNextRound`,
         {
-          userId: cached?.userId,
-          roundNo: searchParams.get("roundNo"),
-          scoreData: teamData,
+          roundNo: searchParams.get("roundNo") + 1,
+          teamId: teamId,
         }
       );
 
@@ -83,6 +83,8 @@ export default function PromoteScores() {
       toast.error("There was an error updating the scores.");
     }
   };
+
+  console.log("team data ", teamData);
 
   return (
     <div className="bg-gray-100 flex items-center justify-center font-dosisRegular">
@@ -123,7 +125,7 @@ export default function PromoteScores() {
             <div className="font-dosisMedium">{team.collegeName}</div>
             <p>{team.score}</p>
             <button
-              onClick={handleSubmit}
+              onClick={() => handleSubmit(team.teamId)}
               className="bg-blue-800 w-full text-white py-2 px-3 rounded-md font-dosisBold hover:bg-blue-700 transition duration-300"
             >
               Promote

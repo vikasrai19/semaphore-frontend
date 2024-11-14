@@ -12,6 +12,7 @@ import {
   UserIcon,
   File02Icon,
   PromotionIcon,
+  UserSwitchIcon,
 } from "hugeicons-react";
 
 export const participantMenu = [
@@ -74,6 +75,16 @@ export const superUserMenu = [
     name: "Verify Payments",
     link: `/superuser/verify-payments`,
     icon: <CreditCardPosIcon color="#000" />,
+  },
+  {
+    name: "Registration Details",
+    link: `/superuser/registration-list`,
+    icon: <Note04Icon color="#000" />,
+  },
+  {
+    name: "Assign Team Names",
+    link: `/superuser/assign-team-name`,
+    icon: <UserSwitchIcon color="#000" />,
   },
   {
     name: "Create User",

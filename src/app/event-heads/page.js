@@ -12,7 +12,7 @@ function EventHeadsPage() {
   // Fetch data for dashboard using useGetData
   const { data, isLoading, error } = useGetData(
     `${cached?.userId}EventHeadDashboard`,
-    `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/GetEventHeadDashbord`,
+    `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/GetEventHeadDashbord?userId=${cached?.userId}`,
     useQueryConfig
   );
 

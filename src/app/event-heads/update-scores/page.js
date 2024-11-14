@@ -1,6 +1,7 @@
 "use client";
 import { DropDown } from "@/components/dropdown";
 import { TextInput } from "@/components/input";
+import { Loading } from "@/components/loading";
 import { useQueryConfig } from "@/config/useQuery.config";
 import { useCached } from "@/hooks/useCached";
 import { useGetData } from "@/hooks/useGetData";
@@ -30,19 +31,23 @@ export default function UpdateScores() {
 
   useEffect(() => {
     if (eventTeamDetails) {
-      const newList = eventTeamDetails.map((ele) => ({
-        teamId: ele?.eventTeam?.eventTeamId,
-        score: ele?.score,
-        collegeName: ele?.eventTeam?.registration?.college?.collegeName,
-        teamName: ele?.eventTeam?.registration?.teamName,
-      }));
+      let newList = [];
+      eventTeamDetails?.map((ele) => {
+        const newData = {
+          teamId: ele?.eventTeam?.eventTeamId,
+          marks: ele?.score,
+          collegeName: ele?.eventTeam?.registration?.college?.collegeName,
+          teamName: ele?.eventTeam?.registration?.teamName,
+        };
+        newList.push(newData);
+      });
       setTeamData(newList);
     }
   }, [eventTeamDetails]);
 
   const handleInputChange = (e, index) => {
     const updatedTeamData = [...teamData];
-    updatedTeamData[index].score = parseInt(e.target.value) || 0;
+    updatedTeamData[index].marks = parseInt(e.target.value) || 0;
     setTeamData(updatedTeamData);
   };
 
@@ -66,10 +71,11 @@ export default function UpdateScores() {
         toast.success("Successfully Updated The Score");
       }
     } catch (error) {
-      console.error(error);
       toast.error("There was an error updating the scores.");
     }
   };
+
+  if (isTotalRoundsLoading) return <Loading />;
 
   return (
     <div className="bg-gray-100 flex items-center justify-center font-dosisRegular">
@@ -79,7 +85,7 @@ export default function UpdateScores() {
           <DropDown
             name="round"
             label="Select Round"
-            DropDownItems={Array(3)
+            DropDownItems={Array(totalRounds)
               .fill("")
               .map((_, index) => ({
                 label: "Round " + (index + 1),
@@ -108,11 +114,19 @@ export default function UpdateScores() {
             <div className="font-dosisMedium">{team.teamName}</div>
             <div className="font-dosisMedium">{team.collegeName}</div>
             <TextInput
-              name="score"
-              label=""
-              value={team.score}
-              onChange={(e) => handleInputChange(e, index)}
-              placeholder="Enter Score"
+              name={""}
+              label={""}
+              value={team?.marks}
+              onChange={(e) => {
+                setTeamData((prevData) =>
+                  prevData.map((ele) =>
+                    team.teamId === ele?.teamId
+                      ? { ...ele, marks: e.target.value }
+                      : ele
+                  )
+                );
+              }}
+              placeholder={"Enter Score"}
             />
           </div>
         ))}
