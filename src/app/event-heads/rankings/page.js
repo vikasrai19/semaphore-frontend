@@ -12,7 +12,7 @@ function EventHeadsPage() {
   // Fetch data for dashboard using useGetData
   const { data, isLoading, error } = useGetData(
     `${cached?.userId}EventHeadDashboard`,
-    `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/GetEventHeadDashbord?userId=${cached?.userId}`,
+    `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/GetTeamRanking`,
     useQueryConfig
   );
 
@@ -30,23 +30,15 @@ function EventHeadsPage() {
   return (
     <div className="p-4 font-mono">
       {/* Container for widgets */}
-      <div className="flex space-x-4 mb-8">
-        {cardList.map((card, index) => (
-          <Widgetsv key={index} type={card.cardName} value={card.cardValue} />
-        ))}
-      </div>
-
       <h5 className="border-b border-gray-300 mb-4"></h5>
-      <h2 className="text-3xl font-dosisBold mb-4">Top Rankings</h2>
+      <h2 className="text-2xl font-semibold mb-4">Top Rankings</h2>
 
       <table className="w-full border-collapse">
         <thead>
           <tr>
-            <th className="text-left p-2 border-b  font-dosisMedium">Rank</th>
-            <th className="text-left p-2 border-b font-dosisMedium">
-              Team Name
-            </th>
-            <th className="text-left p-2 border-b font-dosisMedium">Score</th>
+            <th className="text-left p-2 border-b">Rank</th>
+            <th className="text-left p-2 border-b">Team Name</th>
+            <th className="text-left p-2 border-b">Score</th>
           </tr>
         </thead>
         <tbody>
