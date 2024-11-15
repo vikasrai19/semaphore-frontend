@@ -19,7 +19,7 @@ export default function Login_Page() {
     const { submitData: loginUser, isLoading: isLoading } = useSubmit()
     const { setLoginToken, token } = useAuthStore()
     const { data: authData, isLoading: isAuthLoading } = useGetData(
-        `isAuthenticted`,   
+        `isAuthenticted`,
         `${process.env.NEXT_PUBLIC_URL}/web/api/auth/v1/IsAuthenticated?token=${token}`,
         useQueryConfig,
     )
@@ -76,8 +76,10 @@ export default function Login_Page() {
             router.push('/event-heads')
         } else if (userType === 'admin') {
             router.push('/admin')
-        } else if(userType === 'registration committe'){
+        } else if (userType === 'registration committe') {
             router.push('/registrations')
+        } else if (userType === 'accolades') {
+            router.push('/accolades')
         } else {
             router.push('/error')
         }
