@@ -8,46 +8,43 @@ import { useGetData } from '@/hooks/useGetData';
 import { useSubmit } from '@/hooks/useSubmit';
 import React, { useState } from 'react'
 
-export default function accolades() {
-    const {submitData, isLoading} = useSubmit(null);
-    const [teamRankingData, setTeamRankingData] = useState()
-    const {cached} = useCached('isAuthenticated');
-    const { data: eventsData, isLoading: isEventsLoading } = useGetData(
-        'eventsList',
-        `${process.env.NEXT_PUBLIC_URL}/web/api/events/v1/FindAll`,
-        useQueryConfig,
-      );
-    if(isEventsLoading) return <Loading />
+export default function Accolades() {
+  const { submitData, isLoading } = useSubmit(null);
+  const [teamRankingData, setTeamRankingData] = useState()
+  const { cached } = useCached('isAuthenticated');
+  const { data: eventsData, isLoading: isEventsLoading } = useGetData(
+    'eventsList',
+    `${process.env.NEXT_PUBLIC_URL}/web/api/events/v1/FindAll`,
+    useQueryConfig,
+  );
+  if (isEventsLoading) return <Loading />
 
-    console.log(eventsData);
+  console.log(eventsData);
 
-    const handleEventChange = async (eventId) => {
-      console.log("Calling hook")
-      const {data} = await submitData(
-        `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/GetEventRankings`,
-        {
-          eventId : eventId
-        }
-      )
-      console.log("Team Ranking data",data);
-      if(data){
-        setTeamRankingData(data);
+  const handleEventChange = async (eventId) => {
+    console.log("Calling hook")
+    const { data } = await submitData(
+      `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/GetEventRankings`,
+      {
+        eventId: eventId
       }
-      };
-      
+    )
+    console.log("Team Ranking data", data);
+    if (data) {
+      setTeamRankingData(data);
+    }
+  };
 
-    return (
-        <div className="p-8 bg-white shadow rounded-lg w-full">
+
+  return (
+    <div className="p-8 bg-white shadow rounded-lg w-full">
       <div className="mb-6">
         <h2 className="text-2xl font-dosisBold text-gray-800">Top Rankings</h2>
       </div>
 
-      <div className="mb-4">
-        <label htmlFor="event" className="block text-sm font-dosisMedium text-gray-700 mb-1">
-          Event
-        </label>
+      <div className="mb-4 grid grid-cols-4">
 
-        <DropDown 
+        <DropDown
           name={'event'}
           label='Select Event'
           placeholder={'Select An Event'}
@@ -69,6 +66,7 @@ export default function accolades() {
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Rank</th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Team Name</th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">College Name</th>
+              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Max Round</th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Score</th>
             </tr>
           </thead>
@@ -79,6 +77,7 @@ export default function accolades() {
                   <td className="font-dosisMedium px-6 py-4 whitespace-nowrap text-sm text-gray-700">{index + 1}</td>
                   <td className="font-dosisMedium px-6 py-4 whitespace-nowrap text-sm text-gray-700">{ranking.teamName}</td>
                   <td className="font-dosisMedium px-6 py-4 whitespace-nowrap text-sm text-gray-700">{ranking.collegeName}</td>
+                  <td className="font-dosisMedium px-6 py-4 whitespace-nowrap text-sm text-gray-700">{ranking.maxRound}</td>
                   <td className="font-dosisMedium px-6 py-4 whitespace-nowrap text-sm text-gray-700">{ranking.totalScore}</td>
                 </tr>
               ))

@@ -1,11 +1,18 @@
-import React from 'react'
+'use client'
 
-const page = () => {
+import { useRouter } from 'next/navigation'
+import React, { useEffect } from 'react'
+
+const Page = () => {
+  const router = useRouter()
+  useEffect(() => {
+    router.push('/accolades/score-sheet')
+  }, [])
   return (
     <div>
-      Hello
+
     </div>
   )
 }
 
-export default page
+export default Page

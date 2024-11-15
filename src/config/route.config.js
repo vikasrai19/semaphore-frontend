@@ -119,11 +119,6 @@ export const adminMenuItems = [
 
 export const accoMenuItems = [
   {
-    name: 'Dashboard',
-    link: '/accolades',
-    icon: <DashboardSquare01Icon color='#000' />
-  },
-  {
     name: 'Score Sheet',
     link: '/accolades/score-sheet',
     icon: <CheckmarkBadge04Icon color='#000' />
