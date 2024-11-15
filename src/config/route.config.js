@@ -124,3 +124,17 @@ export const accoMenuItems = [
     icon: <CheckmarkBadge04Icon color='#000' />
   }
 ]
+
+
+export const registrationMenu = [
+  {
+    name: "Registration List",
+    link: `/registrations`,
+    icon: <Note04Icon color="#000" />,
+  },
+  {
+    name: "Assign Team Names",
+    link: `/registrations/assign-team-name`,
+    icon: <Edit01Icon color="#000" />,
+  },
+]
