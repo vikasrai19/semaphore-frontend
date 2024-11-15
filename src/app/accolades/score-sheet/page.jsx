@@ -39,7 +39,7 @@ export default function accolades() {
     return (
         <div className="p-8 bg-white shadow rounded-lg w-full">
       <div className="mb-6">
-        <h2 className="text-2xl font-dosisBold text-gray-800">Top 3 Rankings</h2>
+        <h2 className="text-2xl font-dosisBold text-gray-800">Top Rankings</h2>
       </div>
 
       <div className="mb-4">
