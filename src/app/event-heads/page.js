@@ -37,14 +37,16 @@ function EventHeadsPage() {
       </div>
 
       <h5 className="border-b border-gray-300 mb-4"></h5>
-      <h2 className="text-2xl font-semibold mb-4">Top Rankings</h2>
+      <h2 className="text-3xl font-dosisBold mb-4">Top Rankings</h2>
 
       <table className="w-full border-collapse">
         <thead>
           <tr>
-            <th className="text-left p-2 border-b">Rank</th>
-            <th className="text-left p-2 border-b">Team Name</th>
-            <th className="text-left p-2 border-b">Score</th>
+            <th className="text-left p-2 border-b  font-dosisMedium">Rank</th>
+            <th className="text-left p-2 border-b font-dosisMedium">
+              Team Name
+            </th>
+            <th className="text-left p-2 border-b font-dosisMedium">Score</th>
           </tr>
         </thead>
         <tbody>

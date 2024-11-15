@@ -18,6 +18,12 @@ export default function UpdateScores() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const { data: totalRounds, isLoading: isTotalRoundsLoading } = useGetData(
+    `totalRounds`,
+    `${process.env.NEXT_PUBLIC_URL}/web/api/events/v1/GetEventMaxRounds?${cached?.userId}&roundNo=1`,
+    useQueryConfig
+  );
+
   const { data: eventTeamDetails, isLoading: isTeamDetailsLoading } =
     useGetData(
       `${searchParams.get("roundNo")}eventDetailsData`,
@@ -28,6 +34,12 @@ export default function UpdateScores() {
       }&roundNo=${searchParams.get("roundNo")}`,
       useQueryConfig
     );
+
+  const { data: regCollege, isLoading: isCollegeRoundsLoading } = useGetData(
+    `regCollege`,
+    `${process.env.NEXT_PUBLIC_URL}/web/api/registration/v1/GetRegisteredCollegeList`,
+    useQueryConfig
+  );
 
   useEffect(() => {
     if (eventTeamDetails) {
@@ -74,7 +86,7 @@ export default function UpdateScores() {
       toast.error("There was an error updating the scores.");
     }
   };
-
+  console.log("COLLEGE", teamData);
   if (isTotalRoundsLoading) return <Loading />;
 
   return (
@@ -95,7 +107,6 @@ export default function UpdateScores() {
             onChangeFunction={handleRoundChange}
           />
         </div>
-
         {/* Table Header */}
         <div className="grid grid-cols-4 gap-8 text-center font-dosisBold text-black mb-4">
           <div>S.I No</div>
@@ -130,7 +141,6 @@ export default function UpdateScores() {
             />
           </div>
         ))}
-
         {/* Update Button */}
         <div className="flex justify-start mt-8">
           <button

@@ -29,7 +29,7 @@ export default function PromoteScores() {
       `${searchParams.get("roundNo")}eventDetailsData`,
       `${
         process.env.NEXT_PUBLIC_URL
-      }/web/api/mainEvent/v1/GetTeamScoresForEventHeads?${
+      }/web/api/mainEvent/v1/GetTeamScoresForEventHeads?userId=${
         cached?.userId
       }&roundNo=${searchParams.get("roundNo")}`,
       useQueryConfig
@@ -70,7 +70,7 @@ export default function PromoteScores() {
       const { data } = await updateScore(
         `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/PromoteTeamToNextRound`,
         {
-          roundNo: searchParams.get("roundNo") + 1,
+          roundNo: searchParams.get("roundNo"),
           teamId: teamId,
         }
       );
