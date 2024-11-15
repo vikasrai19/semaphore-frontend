@@ -34,7 +34,7 @@ export const eventHeadMenu = [
         icon: <CheckmarkBadge04Icon color='#000' />,
     },
     {
-        name: 'Rankinhs',
+        name: 'Rankings',
         link: `/event-heads/rankings`,
         icon: <RankingIcon color='#000' />,
     },
@@ -79,4 +79,12 @@ export const adminMenuItems = [
         link: `/admin`,
         icon: <File02Icon color='#000' />,
     },
+];
+
+export const registrationMenu = [
+   {
+        name : 'Registrations',
+        link : '/registrations',
+        icon : <CheckmarkBadge04Icon color='#000' />
+   },
 ];
