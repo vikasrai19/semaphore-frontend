@@ -1,11 +1,11 @@
 "use client";
 import { DropDown } from "@/components/dropdown";
 import { TextInput } from "@/components/input";
+import { Loading } from "@/components/loading";
 import { useQueryConfig } from "@/config/useQuery.config";
 import { useCached } from "@/hooks/useCached";
 import { useGetData } from "@/hooks/useGetData";
 import { useSubmit } from "@/hooks/useSubmit";
-import { ConsoleIcon } from "hugeicons-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -18,19 +18,18 @@ export default function PromoteScores() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // const { data: totalRounds, isLoading: isTotalRoundsLoading } = useGetData(
-  //   `totalRounds`,
-  //   `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/GetTeamScoresForEventHeads?${cached?.userId}&roundNo=1`,
-  //   useQueryConfig
-  // );
+  const { data: totalRounds, isLoading: isTotalRoundsLoading } = useGetData(
+    `totalRounds`,
+    `${process.env.NEXT_PUBLIC_URL}/web/api/events/v1/GetEventMaxRounds?${cached?.userId}`,
+    useQueryConfig
+  );
+
 
   const { data: eventTeamDetails, isLoading: isTeamDetailsLoading } =
     useGetData(
       `${searchParams.get("roundNo")}eventDetailsData`,
-      `${
-        process.env.NEXT_PUBLIC_URL
-      }/web/api/mainEvent/v1/GetTeamScoresForEventHeads?userId=${
-        cached?.userId
+      `${process.env.NEXT_PUBLIC_URL
+      }/web/api/mainEvent/v1/GetTeamScoresForEventHeads?userId=${cached?.userId
       }&roundNo=${searchParams.get("roundNo")}`,
       useQueryConfig
     );
@@ -51,7 +50,6 @@ export default function PromoteScores() {
     }
   }, [eventTeamDetails]);
 
-  console.log("team details ", eventTeamDetails);
 
   const handleInputChange = (e, index) => {
     const updatedTeamData = [...teamData];
@@ -60,13 +58,13 @@ export default function PromoteScores() {
   };
 
   const handleRoundChange = (selectedRound) => {
-    console.log("selected round ", selectedRound);
     setRoundNo(selectedRound);
     router.push("/event-heads/promote-participants?roundNo=" + selectedRound);
   };
 
   const handleSubmit = async (teamId) => {
     try {
+      toast.info("Promoting participants .. please wait")
       const { data } = await updateScore(
         `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/PromoteTeamToNextRound`,
         {
@@ -79,12 +77,11 @@ export default function PromoteScores() {
         toast.success("Successfully Promoted Team");
       }
     } catch (error) {
-      console.error(error);
       toast.error("There was an error updating the scores.");
     }
   };
 
-  console.log("team data ", teamData);
+  if (isTotalRoundsLoading) return <Loading />
 
   return (
     <div className="bg-gray-100 flex items-center justify-center font-dosisRegular">
@@ -94,12 +91,14 @@ export default function PromoteScores() {
           <DropDown
             name={"round"}
             label="Select Round"
-            DropDownItems={Array(3)
+            firstValue={roundNo}
+            DropDownItems={Array(totalRounds)
               .fill("")
               ?.map((ele, index) => ({
                 label: "Round " + (index + 1),
                 value: index + 1,
               }))}
+
             placeholder={"Select Round"}
             onChangeFunction={handleRoundChange}
           />

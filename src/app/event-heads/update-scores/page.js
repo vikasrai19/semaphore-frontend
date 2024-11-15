@@ -20,7 +20,7 @@ export default function UpdateScores() {
 
     const { data: totalRounds, isLoading: isTotalRoundsLoading } = useGetData(
         `totalRounds`,
-        `${process.env.NEXT_PUBLIC_URL}/web/api/events/v1/GetEventMaxRounds?${cached?.userId}&roundNo=1`,
+        `${process.env.NEXT_PUBLIC_URL}/web/api/events/v1/GetEventMaxRounds?${cached?.userId}`,
         useQueryConfig
     );
 
@@ -68,6 +68,7 @@ export default function UpdateScores() {
 
     const handleSubmit = async () => {
         try {
+            toast.info("Updating scores .. please wait")
             const { data } = await updateScore(
                 `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/UpdateTeamScoreForEventHeads`,
                 {
@@ -84,7 +85,6 @@ export default function UpdateScores() {
             toast.error("There was an error updating the scores.");
         }
     };
-    console.log("COLLEGE", teamData);
     if (isTotalRoundsLoading) return <Loading />;
 
     return (
