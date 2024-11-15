@@ -17,8 +17,8 @@ export default function UpdateScores() {
         useQueryConfig
     )
 
-    
-    
+
+
 
     useEffect(() => {
         async function fetchData() {
@@ -45,15 +45,15 @@ export default function UpdateScores() {
                 ]
             )
         }
-        fetchData();    
-            console.log(cached?.userId);
+        fetchData();
+        console.log(cached?.userId);
 
     }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
-        setformData({ score: value })   
+        setformData({ score: value })
     }
 
 
@@ -69,8 +69,8 @@ export default function UpdateScores() {
                         label="Select Round"
                         DropDownItems={Array(totalRounds).fill('')?.map((ele, index) => {
                             return {
-                                label: 'Round ' + (index+1),
-                                value: 'Round ' + (index+1),
+                                label: 'Round ' + (index + 1),
+                                value: 'Round ' + (index + 1),
                             }
                         })}
                         placeholder={'Select Round'}
@@ -98,8 +98,8 @@ export default function UpdateScores() {
                                 <img className='size-6 w-10' src="/icons/score.png" alt="Score Icon" />
                             </span>
                             <input type='number'
-                                name = 'score'
-                                value = {team.score}
+                                name='score'
+                                value={team.score}
                                 onChange={handleInputChange}
                                 placeholder='Enter Score'
                                 className="flex w-full outline-none items-center justify-center rounded-md px-1 py-1 font-dosisMedium" />
