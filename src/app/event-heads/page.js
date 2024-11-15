@@ -28,7 +28,7 @@ function EventHeadsPage() {
   const { cardList = [], topRankings = [] } = data || {};
 
   return (
-    <div className="p-4 font-mono">
+    <div className="p-4 font-mono bg-white rounded-lg">
       {/* Container for widgets */}
       <div className="flex space-x-4 mb-8">
         {cardList.map((card, index) => (
@@ -37,7 +37,7 @@ function EventHeadsPage() {
       </div>
 
       <h5 className="border-b border-gray-300 mb-4"></h5>
-      <h2 className="text-3xl font-dosisBold mb-4">Top Rankings</h2>
+      <h2 className="text-3xl font-dosisBold mb-4">Top 3 Rankings</h2>
 
       <table className="w-full border-collapse">
         <thead>

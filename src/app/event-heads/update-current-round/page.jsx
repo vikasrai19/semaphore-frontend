@@ -7,6 +7,7 @@ import { useCached } from "@/hooks/useCached";
 import { useGetData } from "@/hooks/useGetData";
 import { useSubmit } from "@/hooks/useSubmit";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
 const UpdateCurrentRound = () => {
@@ -14,6 +15,7 @@ const UpdateCurrentRound = () => {
     const { submitData, isLoading: isSubmitting } = useSubmit()
     const [selectedRoudNo, setSelectedRoundNo] = useState(null);
     const { cached } = useCached('isAuthenticated')
+    const queryClient = useQueryClient()
 
     const { data: totalRounds, isLoading: isTotalRoundsLoading } = useGetData(
         `totalRounds`,
@@ -33,6 +35,7 @@ const UpdateCurrentRound = () => {
                 }
             )
             if (data) {
+                await queryClient.invalidateQueries(`${cached?.userId}EventHeadDashboard`)
                 toast.success('Successfully updated the current round data')
             }
         } catch (e) {
