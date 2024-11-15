@@ -159,7 +159,8 @@ const EditTeamDetails = () => {
                                                         label={`Member ${ind + 1} Participant Name`}
                                                         placeholder="Enter Name"
                                                         type="text"
-                                                        isRequired={ind < 4 ? true : false}
+                                                        // isRequired={ind < 4 ? true : false}
+                                                        isRequired={false}
                                                         value={el?.memberName}
                                                         onChange={(e) => handleInputChange(index, ind, 'memberName', e.target.value)}
                                                     />
@@ -168,7 +169,8 @@ const EditTeamDetails = () => {
                                                         label={`Member ${ind + 1} Phone Number`}
                                                         placeholder="Enter Phone Number"
                                                         type="number"
-                                                        isRequired={ind < 4 ? true : false}
+                                                        // isRequired={ind < 4 ? true : false}
+                                                        isRequired={false}
                                                         value={el?.memberPhoneNumber}
                                                         onChange={(e) => handleInputChange(index, ind, 'memberPhoneNumber', e.target.value)}
                                                     />
