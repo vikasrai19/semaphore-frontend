@@ -55,7 +55,7 @@ const EventDetailsComponent = () => {
             'pluto': <Pluto scale={[planetScale, planetScale * 1.1, planetScale]} position={[planetXPosition, 0, 0]} />
         }
         setModelData((prev) => data);
-    }, [])
+    }, [planetScale, planetXPosition])
     return (
         <>
             <Suspense fallback={<ModelLoading />}>

@@ -6,16 +6,15 @@ import { useCached } from '@/hooks/useCached'
 import { useGetData } from '@/hooks/useGetData';
 import React from 'react'
 
-export default function page() {
-    const {cached} = useCached('isAuthenticated');
+export default function Page() {
+  const { cached } = useCached('isAuthenticated');
 
-    const { data : registrationDetails, isLoading : isEventLoading} = useGetData(
-        'registrationDetails',
-        `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/GetEventTeamsForHead?userId=${cached?.userId}`,
-        useQueryConfig,
-    )
-    if(isEventLoading) return <Loading />
-    console.log('event data ', registrationDetails);
+  const { data: registrationDetails, isLoading: isEventLoading } = useGetData(
+    'registrationDetails',
+    `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/GetEventTeamsForHead?userId=${cached?.userId}`,
+    useQueryConfig,
+  )
+  if (isEventLoading) return <Loading />
 
   return (
     <div className="p-8 bg-gray-50">
@@ -58,4 +57,4 @@ export default function page() {
   )
 }
 
- 
+

@@ -6,8 +6,11 @@ import React, { useEffect } from 'react'
 const Page = () => {
   const router = useRouter()
   useEffect(() => {
-    router.push('/accolades/score-sheet')
-  }, [])
+    if (router) {
+
+      router.push('/accolades/score-sheet')
+    }
+  }, [router])
   return (
     <div>
 
