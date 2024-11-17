@@ -14,7 +14,8 @@ import {
   PromotionIcon,
   UserSwitchIcon,
   Edit01Icon,
-  Delete02Icon
+  Delete02Icon,
+  LockPasswordIcon
 } from "hugeicons-react";
 
 export const participantMenu = [
@@ -32,6 +33,11 @@ export const participantMenu = [
     name: "Payment History",
     link: `/participant/payment-details`,
     icon: <CreditCardPosIcon color="#000" />,
+  },
+  {
+    name: "Change Password",
+    link: `/request-password-change`,
+    icon: <LockPasswordIcon color="#000" />,
   },
 ];
 export const eventHeadMenu = [
@@ -69,6 +75,11 @@ export const eventHeadMenu = [
     name: "Update Current Round",
     link: `/event-heads/update-current-round`,
     icon: <Edit01Icon color="#000" />,
+  },
+  {
+    name: "Change Password",
+    link: `/request-password-change`,
+    icon: <LockPasswordIcon color="#000" />,
   },
 ];
 
@@ -113,6 +124,11 @@ export const superUserMenu = [
     link: `/superuser/delete-registration`,
     icon: <Delete02Icon color="#000" />,
   },
+  {
+    name: "Change Password",
+    link: `/request-password-change`,
+    icon: <LockPasswordIcon color="#000" />,
+  },
 ];
 
 export const adminMenuItems = [
@@ -121,6 +137,11 @@ export const adminMenuItems = [
     link: `/admin`,
     icon: <File02Icon color='#000' />,
   },
+  {
+    name: "Change Password",
+    link: `/request-password-change`,
+    icon: <LockPasswordIcon color="#000" />,
+  },
 ];
 
 export const accoMenuItems = [
@@ -128,7 +149,12 @@ export const accoMenuItems = [
     name: 'Score Sheet',
     link: '/accolades/score-sheet',
     icon: <CheckmarkBadge04Icon color='#000' />
-  }
+  },
+  {
+    name: "Change Password",
+    link: `/request-password-change`,
+    icon: <LockPasswordIcon color="#000" />,
+  },
 ]
 
 
@@ -142,5 +168,10 @@ export const registrationMenu = [
     name: "Assign Team Names",
     link: `/registrations/assign-team-name`,
     icon: <Edit01Icon color="#000" />,
+  },
+  {
+    name: "Change Password",
+    link: `/request-password-change`,
+    icon: <LockPasswordIcon color="#000" />,
   },
 ]
