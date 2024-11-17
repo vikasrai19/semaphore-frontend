@@ -1,7 +1,6 @@
 'use client'
 
-import { PasswordTextInput, TextInput } from "@/components/input"
-import { useCached } from "@/hooks/useCached"
+import { PasswordTextInput } from "@/components/input"
 import { useSubmit } from "@/hooks/useSubmit"
 import { useSearchParams } from "next/navigation"
 import { useState } from "react"
@@ -16,7 +15,6 @@ const ChangePasswordPage = () => {
 }
 
 const ChangePasswordComponent = () => {
-    const { cached } = useCached('isAuthenticated')
     const searchParams = useSearchParams()
     const { submitData: changePassword, isLoading: isPasswordChanging } = useSubmit()
 
@@ -31,11 +29,15 @@ const ChangePasswordComponent = () => {
         try {
             const formData = new FormData(e.target)
             const body = Object.fromEntries(formData)
+            if (inputData?.newPassword !== inputData?.reEnterPassword) {
+                toast.error('Passwords do not match')
+                return
+            }
             const { data } = await changePassword(
                 `${process.env.NEXT_PUBLIC_URL}/web/api/users/v1/ChangePassword`,
                 {
                     ...body,
-                    userId: cached?.userId,
+                    userId: searchParams.get('userId'),
                 }
             )
             if (data) {
