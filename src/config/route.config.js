@@ -13,7 +13,8 @@ import {
   File02Icon,
   PromotionIcon,
   UserSwitchIcon,
-  Edit01Icon
+  Edit01Icon,
+  Delete02Icon
 } from "hugeicons-react";
 
 export const participantMenu = [
@@ -106,6 +107,11 @@ export const superUserMenu = [
     name: "Create Status",
     link: `/superuser/create-status`,
     icon: <UserStatusIcon color="#000" />,
+  },
+  {
+    name: "Delete Registrations",
+    link: `/superuser/delete-registration`,
+    icon: <Delete02Icon color="#000" />,
   },
 ];
 
