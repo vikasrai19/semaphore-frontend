@@ -1,15 +1,18 @@
 'use client'
 
 import { PasswordTextInput } from "@/components/input"
+import { Loading } from "@/components/loading"
 import { useSubmit } from "@/hooks/useSubmit"
 import { useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { toast } from "react-toastify"
 
 const ChangePasswordPage = () => {
     return (
         <>
-            <ChangePasswordComponent />
+            <Suspense fallback={<Loading />} >
+                <ChangePasswordComponent />
+            </Suspense>
         </>
     )
 }
