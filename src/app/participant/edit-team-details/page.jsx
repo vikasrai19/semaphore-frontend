@@ -68,7 +68,6 @@ const EditTeamDetails = () => {
         });
     }
 
-    console.log("input data ", inputData)
 
     const handleUpdate = async (e) => {
         e.preventDefault()

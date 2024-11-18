@@ -20,7 +20,6 @@ function EventHeadsPage() {
 
   if (isLoading) return <Loading />
 
-  console.log("data from server ", data)
 
   return (
     <>

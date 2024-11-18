@@ -7,17 +7,16 @@ import { useQueryConfig } from '@/config/useQuery.config';
 import { Loading } from '@/components/loading';
 
 const EventDetails = () => {
-    const {cached} = useCached('isAuthenticated')
+    const { cached } = useCached('isAuthenticated')
 
-    const {data: eventDetails, isLoading: isEventLoading} = useGetData(
+    const { data: eventDetails, isLoading: isEventLoading } = useGetData(
         'eventDetails',
         `${process.env.NEXT_PUBLIC_URL}/web/api/events/v1/GetEventDetailsForHead?userId=${cached?.userId}`,
         useQueryConfig,
     )
 
-    if(isEventLoading) return <Loading />
-    console.log('event data ', eventDetails);
-    
+    if (isEventLoading) return <Loading />
+
     return (
         <div className="bg-white rounded-lg p-5 shadow-md mx-0.5 my-1">
             <div className="border-b pb-2 mb-4">
@@ -30,7 +29,7 @@ const EventDetails = () => {
             <div>
                 <h3 className="text-xl font-dosisBold font-medium text-gray-800 mb-2">Rules</h3>
                 <ul className="list-none font-dosisRegular space-y-2 text-gray-700 text-base">
-                {eventDetails.eventRules.map((rule, index) => (
+                    {eventDetails.eventRules.map((rule, index) => (
                         <li key={rule.eventRulesId}>{rule.ruleNo}. {rule.eventRule}</li>
                     ))}
                 </ul>

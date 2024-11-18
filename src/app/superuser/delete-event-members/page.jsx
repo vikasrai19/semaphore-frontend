@@ -34,7 +34,6 @@ const DeleteEventMembers = () => {
             if (data) {
                 setEventMembers((prev) => data);
             }
-            console.log("data  from server ", data)
         } catch (error) {
             toast.error(error?.response?.data?.message ?? error?.message ?? 'Registration failed')
         }

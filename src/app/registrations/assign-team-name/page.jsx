@@ -53,7 +53,6 @@ const AssignTeamName = () => {
     }
 
     if (isEventLoading) return <Loading />
-    console.log('college reg name ', regCollegeNames)
 
     return (
         <>
