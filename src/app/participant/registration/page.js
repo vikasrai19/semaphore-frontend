@@ -14,7 +14,6 @@ const ParticipantRegistrationPage = () => {
 
     const { cached } = useCached('isAuthenticated')
     const router = useRouter()
-    // console.log('cached ', cached)
 
     const { data: isPaymentPending, isLoading: isPaymentPendingLoading } = useGetData(
         `isPaymentPending`,

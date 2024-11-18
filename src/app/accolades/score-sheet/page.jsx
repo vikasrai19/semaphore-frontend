@@ -7,8 +7,11 @@ import { useCached } from '@/hooks/useCached'
 import { useGetData } from '@/hooks/useGetData';
 import { useSubmit } from '@/hooks/useSubmit';
 import React, { useState } from 'react'
+import { EyeIcon } from 'hugeicons-react';
+import { useRouter } from 'next/navigation';
 
 export default function Accolades() {
+  const router = useRouter()
   const { submitData, isLoading } = useSubmit(null);
   const [teamRankingData, setTeamRankingData] = useState()
   const { cached } = useCached('isAuthenticated');
@@ -19,17 +22,13 @@ export default function Accolades() {
   );
   if (isEventsLoading) return <Loading />
 
-  console.log(eventsData);
-
   const handleEventChange = async (eventId) => {
-    console.log("Calling hook")
     const { data } = await submitData(
       `${process.env.NEXT_PUBLIC_URL}/web/api/mainEvent/v1/GetEventRankings`,
       {
         eventId: eventId
       }
     )
-    console.log("Team Ranking data", data);
     if (data) {
       setTeamRankingData(data);
     }
@@ -68,6 +67,7 @@ export default function Accolades() {
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">College Name</th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Max Round</th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Score</th>
+              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -79,6 +79,7 @@ export default function Accolades() {
                   <td className="font-dosisMedium px-6 py-4 whitespace-nowrap text-sm text-gray-700">{ranking.collegeName}</td>
                   <td className="font-dosisMedium px-6 py-4 whitespace-nowrap text-sm text-gray-700">{ranking.maxRound}</td>
                   <td className="font-dosisMedium px-6 py-4 whitespace-nowrap text-sm text-gray-700">{ranking.totalScore}</td>
+                  <td className="font-dosisMedium px-6 py-4 whitespace-nowrap text-sm text-gray-700"><EyeIcon color='#000' className='cursor-pointer' onClick={() => router.push(`/accolades/details-page?teamId=${ranking.teamId}`)} /></td>
                 </tr>
               ))
             ) : (

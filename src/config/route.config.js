@@ -20,11 +20,6 @@ import {
 
 export const participantMenu = [
   {
-    name: "Dashboard",
-    link: `/participant`,
-    icon: <DashboardSquare01Icon color="#000" />,
-  },
-  {
     name: "Registration",
     link: `/participant/registration`,
     icon: <Notebook02Icon color="#000" />,

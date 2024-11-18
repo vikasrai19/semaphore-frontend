@@ -55,7 +55,6 @@ export default function UpdateScores() {
         }
     }, [eventTeamDetails]);
 
-    console.log("event team details ", eventTeamDetails)
 
     const handleInputChange = (e, index) => {
         const updatedTeamData = [...teamData];
