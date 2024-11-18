@@ -165,7 +165,7 @@ const RegisterSection = ({ eventList }) => {
                     eventRegistrationDetails: inputData,
                 }
             )
-            
+
 
             if (data) {
                 toast.success('Event registration successful')
@@ -277,7 +277,7 @@ const AlreadyRegisteredSection = () => {
                         )
                     })}
                 </div>
-                <div className="flex justify-center w-full font-dosisMedium">
+                {/* <div className="flex justify-center w-full font-dosisMedium">
                     <button
                         className="w-1/2 bg-blue-950 text-white py-2 rounded-md text-lg font-dosisBold hover:bg-blue-700 transition duration-300 cursor-pointer"
                         type="button"
@@ -285,7 +285,7 @@ const AlreadyRegisteredSection = () => {
                     >
                         Update Details
                     </button>
-                </div>
+                </div> */}
             </div>
         </>
     )
