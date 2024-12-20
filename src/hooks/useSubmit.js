@@ -11,6 +11,7 @@ const useSubmit = () => {
     const [invalidate, setInvalidate] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
+
     async function submitData(url, body, withMutate = false) {
         setIsLoading(true)
         try {

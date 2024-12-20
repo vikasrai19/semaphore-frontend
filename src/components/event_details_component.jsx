@@ -32,14 +32,15 @@ const EventDetailsComponent = () => {
             setEventId(fetchedEventId)
         }
     }, [searchParams])
+
+    // web/api/events/v1/FindById -> send event id to this url -> i will get the event details
     const { data: eventData, isLoading: isEventLoading } = useGetData(
-        `${eventId}EventDetails`,
+        `${eventId}EventDetails`, // eventIdEventDetails
         `${process.env.NEXT_PUBLIC_URL}/web/api/events/v1/FindById?eventId=${eventId}`,
         useQueryConfig
     )
     const planetScale = isMobile ? 0.001 : 0.002
     const planetXPosition = isMobile ? -1 : -3.5
-
 
     useEffect(() => {
         const data = {
